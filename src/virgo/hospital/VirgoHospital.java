@@ -5,6 +5,9 @@
  */
 package virgo.hospital;
 
+import DAL.SqlRepo;
+import MODEL.Person;
+
 /**
  *
  * @author Karlo
@@ -16,6 +19,9 @@ public class VirgoHospital {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Person p=new Person("Marko","El","Maric");
+        SqlRepo s=new SqlRepo();
+        System.out.println(s.insertPerson(p));
     }
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MODEL;
 
 /**
@@ -10,5 +5,24 @@ package MODEL;
  * @author Karlo
  */
 public class Person {
+    private int ID;
+    private String FirstName;
+    private String MidleName;
+    private String Surname;
     
+    public Person(String firstname,String midlename,String surname){
+        FirstName=firstname;
+        MidleName=midlename;
+        Surname=surname;
+    }
+    
+    public String getFirstName(){
+        return FirstName;
+    }
+    public String getMidleName(){
+        return MidleName;
+    }
+    public String getSurname(){
+        return Surname;
+    }
 }

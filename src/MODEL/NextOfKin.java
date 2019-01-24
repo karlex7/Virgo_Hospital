@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL;
-
-import MODEL.Person;
+package MODEL;
 
 /**
  *
  * @author Karlo
  */
-public interface IRepo {
-    int insertPerson(Person p);
+public class NextOfKin {
+    private int ID;
+    private int PersonID;
+    private String RelationShip;
 }

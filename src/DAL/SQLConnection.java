@@ -6,7 +6,7 @@
 package DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import javax.activation.DataSource;
+import javax.sql.DataSource;
 
 /**
  *
@@ -14,7 +14,7 @@ import javax.activation.DataSource;
  */
 public class SQLConnection {
     private static final String SERVER_NAME = "localhost";  
-    private static final String DATABASE_NAME = "JAVASTART";
+    private static final String DATABASE_NAME = "Virgo_Hospital";
     private static final String USER = "sa"; 
     private static final String PASSWORD = "SQL";
 
@@ -35,7 +35,7 @@ public class SQLConnection {
         dataSource.setDatabaseName(DATABASE_NAME);
         dataSource.setUser(USER);
         dataSource.setPassword(PASSWORD);
-        return (DataSource) dataSource;
+        return dataSource;
      }
     
     

@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAL;
+package MODEL;
 
-import MODEL.Person;
+import java.util.Date;
 
 /**
  *
  * @author Karlo
  */
-public interface IRepo {
-    int insertPerson(Person p);
+public class Patient {
+    private int ID;
+    private int PersonID;
+    private String Sex;
+    private Date BirthDate;
+    private int DoctorID;
+    
 }
