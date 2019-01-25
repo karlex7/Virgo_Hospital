@@ -1,19 +1,22 @@
-package MODEL;
+package MODEL.Patient;
 
 /**
  *
  * @author Karlo
  */
 public class Person {
-    private int ID;
+    private int IDPerson;
     private String FirstName;
     private String MidleName;
     private String Surname;
-    
-    public Person(String firstname,String midlename,String surname){
-        FirstName=firstname;
-        MidleName=midlename;
-        Surname=surname;
+
+    public Person(String FirstName, String MidleName, String Surname) {
+        this.FirstName = FirstName;
+        this.MidleName = MidleName;
+        this.Surname = Surname;
+    }
+    public int getIDPerson(){
+        return IDPerson;
     }
     
     public String getFirstName(){
@@ -24,5 +27,8 @@ public class Person {
     }
     public String getSurname(){
         return Surname;
+    }
+    public void setIDPerson(int id){
+        IDPerson=id;
     }
 }

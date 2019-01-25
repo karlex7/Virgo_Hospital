@@ -5,7 +5,8 @@
  */
 package DAL;
 
-import MODEL.Person;
+import MODEL.Patient.Person;
+
 
 /**
  *
@@ -13,4 +14,5 @@ import MODEL.Person;
  */
 public interface IRepo {
     int insertPerson(Person p);
+    
 }

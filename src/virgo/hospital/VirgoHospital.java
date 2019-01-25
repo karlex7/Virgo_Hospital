@@ -6,7 +6,7 @@
 package virgo.hospital;
 
 import DAL.SqlRepo;
-import MODEL.Person;
+import MODEL.Patient.Person;
 
 /**
  *

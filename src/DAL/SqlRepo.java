@@ -5,7 +5,7 @@
  */
 package DAL;
 
-import MODEL.Person;
+import MODEL.Patient.Person;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
