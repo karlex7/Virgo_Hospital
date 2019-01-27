@@ -8,9 +8,9 @@ public class LabTestRecommended {
     private int IDLabtestRecommended;
     private int LabTestID;
     private int PatientID;
-    private char Paid;
+    private boolean Paid;
 
-    public LabTestRecommended(int LabTestID, int PatientID, char Paid) {
+    public LabTestRecommended(int LabTestID, int PatientID, boolean Paid) {
         this.LabTestID = LabTestID;
         this.PatientID = PatientID;
         this.Paid = Paid;
@@ -24,7 +24,7 @@ public class LabTestRecommended {
     public int getPatientID(){
         return PatientID;
     }
-    public char getPaid(){
+    public boolean getPaid(){
         return Paid;
     }
     public void setIDLabtestRecommended(int id){

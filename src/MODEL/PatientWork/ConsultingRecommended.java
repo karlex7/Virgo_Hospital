@@ -8,9 +8,9 @@ public class ConsultingRecommended {
     private int IDConsultingRecommended;
     private int ConsultingID;
     private int PatientID;
-    private char Paid;
+    private boolean Paid;
 
-    public ConsultingRecommended(int ConsultingID, int PatientID, char Paid) {
+    public ConsultingRecommended(int ConsultingID, int PatientID, boolean Paid) {
         this.ConsultingID = ConsultingID;
         this.PatientID = PatientID;
         this.Paid = Paid;
@@ -24,7 +24,7 @@ public class ConsultingRecommended {
     public int getPatientID(){
         return PatientID;
     }
-    public char getPaid(){
+    public boolean getPaid(){
         return Paid;
     }
     public void setIDConsultingRecommended(int id){

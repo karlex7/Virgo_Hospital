@@ -6,19 +6,19 @@ package MODEL.Comprehensive;
  */
 public class ImportantMedicalComplaints {
     private int IDImportantMedicalComplaints;
-    private char Diabetic;
-    private char  Hypertensive;
-    private char CardiacCondition;
-    private char RespiratoryCondition;
-    private char DigestiveCondition;
-    private char OrthopedicCondition;
-    private char MuscularCondition;
-    private char NeurologicalCondition;
+    private boolean Diabetic;
+    private boolean Hypertensive;
+    private boolean CardiacCondition;
+    private boolean RespiratoryCondition;
+    private boolean DigestiveCondition;
+    private boolean OrthopedicCondition;
+    private boolean MuscularCondition;
+    private boolean NeurologicalCondition;
     private String KnownAlergies;
     private String KnownReactionToDrugs;
     private String MajorSurgeries;
 
-    public ImportantMedicalComplaints(char Diabetic, char Hypertensive, char CardiacCondition, char RespiratoryCondition, char DigestiveCondition, char OrthopedicCondition, char MuscularCondition, char NeurologicalCondition, String KnownAlergies, String KnownReactionToDrugs, String MajorSurgeries) {
+    public ImportantMedicalComplaints(boolean Diabetic, boolean Hypertensive, boolean CardiacCondition, boolean RespiratoryCondition, boolean DigestiveCondition, boolean OrthopedicCondition, boolean MuscularCondition, boolean NeurologicalCondition, String KnownAlergies, String KnownReactionToDrugs, String MajorSurgeries) {
         this.Diabetic = Diabetic;
         this.Hypertensive = Hypertensive;
         this.CardiacCondition = CardiacCondition;
@@ -31,31 +31,33 @@ public class ImportantMedicalComplaints {
         this.KnownReactionToDrugs = KnownReactionToDrugs;
         this.MajorSurgeries = MajorSurgeries;
     }
+
+    
     public int getIDImportantMedicalComplaints(){
         return IDImportantMedicalComplaints;
     }
-    public char getDiabetic(){
+    public boolean getDiabetic(){
         return Diabetic;
     }
-    public char getHypertensive(){
+    public boolean getHypertensive(){
         return Hypertensive;
     }
-    public char getCardiacCondition(){
+    public boolean getCardiacCondition(){
         return CardiacCondition;
     }
-    public char getRespiratoryCondition(){
+    public boolean getRespiratoryCondition(){
         return RespiratoryCondition;
     }
-    public char getDigestiveCondition(){
+    public boolean getDigestiveCondition(){
         return DigestiveCondition;
     }
-    public char getOrthopedicCondition(){
+    public boolean getOrthopedicCondition(){
         return OrthopedicCondition;
     }
-    public char getMuscularCondition(){
+    public boolean getMuscularCondition(){
         return MuscularCondition;
     }
-    public char getNeurologicalCondition(){
+    public boolean getNeurologicalCondition(){
         return NeurologicalCondition;
     }
     public String getKnownAlergies(){

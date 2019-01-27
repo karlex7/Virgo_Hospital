@@ -8,9 +8,9 @@ public class MedicationsPrescribed {
     private int IDMedicationsPrescribed;
     private int MedicationID;
     private int PatientID;
-    private char Paid;
+    private boolean Paid;
 
-    public MedicationsPrescribed(int MedicationID, int PatientID, char Paid) {
+    public MedicationsPrescribed(int MedicationID, int PatientID, boolean Paid) {
         this.MedicationID = MedicationID;
         this.PatientID = PatientID;
         this.Paid = Paid;
@@ -24,7 +24,7 @@ public class MedicationsPrescribed {
     public int getPatientID(){
         return PatientID;
     }
-    public char getPaid(){
+    public boolean getPaid(){
         return Paid;
     }
     public void setID(int id){

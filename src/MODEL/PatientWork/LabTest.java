@@ -9,10 +9,12 @@ public class LabTest {
     private String LabTestName;
     private int Cost;
 
-    public LabTest(String LabTestName, int Cost) {
+    public LabTest(int IDLabTest, String LabTestName, int Cost) {
+        this.IDLabTest = IDLabTest;
         this.LabTestName = LabTestName;
         this.Cost = Cost;
     }
+
     public int getIDLabTest(){
         return IDLabTest;
     }

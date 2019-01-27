@@ -4,11 +4,11 @@ package MODEL.Adress;
  *
  * @author Karlo
  */
-public class State {
+public class States {
     private int IDState;
     private String StateName;
 
-    public State(String StateName) {
+    public States(String StateName) {
         this.StateName = StateName;
     }
     public int getID(){

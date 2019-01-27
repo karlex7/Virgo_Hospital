@@ -6,18 +6,18 @@ package MODEL.Comprehensive;
  */
 public class LifeStyle {
     private int IDLifeStyle;
-    private char Vegetarian;
-    private char Smoker;
-    private char ConsumeAlcohol;
-    private char UseStimulants;
+    private boolean Vegetarian;
+    private boolean Smoker;
+    private boolean ConsumeAlcohol;
+    private boolean UseStimulants;
     private int ConsumptionOfCoffeTeaPerDay;
     private int ConsumptionOfSoftDrinksPerDay;
-    private char RegularMeals;
-    private char EatHomePredominantly;
+    private boolean RegularMeals;
+    private boolean EatHomePredominantly;
     private int CigaretsPerDay;
     private int DrinksPerDay;
 
-    public LifeStyle(char Vegetarian, char Smoker, char ConsumeAlcohol, char UseStimulants, int ConsumptionOfCoffeTeaPerDay, int ConsumptionOfSoftDrinksPerDay, char RegularMeals, char EatHomePredominantly, int CigaretsPerDay, int DrinksPerDay) {
+    public LifeStyle(boolean Vegetarian, boolean Smoker, boolean ConsumeAlcohol, boolean UseStimulants, int ConsumptionOfCoffeTeaPerDay, int ConsumptionOfSoftDrinksPerDay, boolean RegularMeals, boolean EatHomePredominantly, int CigaretsPerDay, int DrinksPerDay) {
         this.Vegetarian = Vegetarian;
         this.Smoker = Smoker;
         this.ConsumeAlcohol = ConsumeAlcohol;
@@ -29,20 +29,21 @@ public class LifeStyle {
         this.CigaretsPerDay = CigaretsPerDay;
         this.DrinksPerDay = DrinksPerDay;
     }
+
     public int getIDLifeStyle(){
         return IDLifeStyle;
     }
     
-    public char getVegetarian(){
+    public boolean getVegetarian(){
         return Vegetarian;
     }
-    public char getSmoker(){
+    public boolean getSmoker(){
         return Smoker;
     }
-    public char getConsumeAlcohol(){
+    public boolean getConsumeAlcohol(){
         return ConsumeAlcohol;
     }
-    public char getUseStimulants(){
+    public boolean getUseStimulants(){
         return UseStimulants;
     }
     public int getConsumptionOfCoffeTeaPerDay(){
@@ -51,10 +52,10 @@ public class LifeStyle {
     public int getConsumptionOfSoftDrinksPerDay(){
         return ConsumptionOfSoftDrinksPerDay;
     }
-    public char getRegularMeals(){
+    public boolean getRegularMeals(){
         return RegularMeals;
     }
-    public char getEatHomePredominantly(){
+    public boolean getEatHomePredominantly(){
         return EatHomePredominantly;
     }
     public int getCigaretsPerDay(){

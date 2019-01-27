@@ -31,4 +31,10 @@ public class Person {
     public void setIDPerson(int id){
         IDPerson=id;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" + "FirstName=" + FirstName + ", MidleName=" + MidleName + ", Surname=" + Surname + '}';
+    }
+    
 }

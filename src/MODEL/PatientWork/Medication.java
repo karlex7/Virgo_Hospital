@@ -9,10 +9,13 @@ public class Medication {
     private String MedicationName;
     private int Cost;
 
-    public Medication(String MedicationName, int Cost) {
+    public Medication(int IDMedication, String MedicationName, int Cost) {
+        this.IDMedication = IDMedication;
         this.MedicationName = MedicationName;
         this.Cost = Cost;
     }
+
+    
     public int getIDMedication(){
         return IDMedication;
     }

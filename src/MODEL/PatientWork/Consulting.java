@@ -8,13 +8,15 @@ public class Consulting {
     private int IDConsulting;
     private String ConsultingName;
     private int SpecialistConsultantID;
-    private char Cost;
+    private int Cost;
 
-    public Consulting(String ConsultingName, int SpecialistConsultantID, char Cost) {
+    public Consulting(int IDConsulting, String ConsultingName, int SpecialistConsultantID, int Cost) {
+        this.IDConsulting = IDConsulting;
         this.ConsultingName = ConsultingName;
         this.SpecialistConsultantID = SpecialistConsultantID;
         this.Cost = Cost;
     }
+
     public int getIDConsulting(){
         return IDConsulting;
     }
@@ -24,7 +26,7 @@ public class Consulting {
     public int getSpecialistConsultantID(){
         return SpecialistConsultantID;
     }
-    public char getCost(){
+    public int getCost(){
         return Cost;
     }
     public void setIDConsulting(int id){

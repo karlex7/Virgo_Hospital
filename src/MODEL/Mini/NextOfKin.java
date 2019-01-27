@@ -1,18 +1,21 @@
 package MODEL.Mini;
 
+import MODEL.Patient.Person;
+
 /**
  *
  * @author Karlo
  */
-public class NextOfKin {
+public class NextOfKin extends Person{
     private int IDNextOfKin;
     private int PersonID;
     private String RelationShip;
 
-    public NextOfKin(int PersonID, String RelationShip) {
-        this.PersonID = PersonID;
+    public NextOfKin(String RelationShip, String FirstName, String MidleName, String Surname) {
+        super(FirstName, MidleName, Surname);
         this.RelationShip = RelationShip;
     }
+
     public int getIDNextOfKin(){
         return IDNextOfKin;
     }

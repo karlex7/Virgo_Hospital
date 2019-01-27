@@ -1,6 +1,8 @@
 package MODEL.Patient;
 
-import java.util.Date;
+import java.sql.Date;
+
+
 
 /**
  *
@@ -19,6 +21,7 @@ public class Patient extends Person{
         this.BirthDate = BirthDate;
         this.DoctorID = DoctorID;
     }
+
     public int getIDPatient(){
         return IDPatient;
     }
