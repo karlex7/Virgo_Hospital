@@ -15,8 +15,10 @@ public class Patient extends Person{
     private Date BirthDate;
     private int DoctorID;
 
-    public Patient(String Sex, Date BirthDate, int DoctorID, String FirstName, String MidleName, String Surname) {
-        super(FirstName, MidleName, Surname);
+    public Patient(int IDPatient, int PersonID, String Sex, Date BirthDate, int DoctorID, int IDPerson, String FirstName, String MidleName, String Surname) {
+        super(IDPerson, FirstName, MidleName, Surname);
+        this.IDPatient = IDPatient;
+        this.PersonID = PersonID;
         this.Sex = Sex;
         this.BirthDate = BirthDate;
         this.DoctorID = DoctorID;
@@ -41,5 +43,11 @@ public class Patient extends Person{
     public void setIDPatient(int id){
         IDPatient=id;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "IDPatient=" + IDPatient + ", PersonID=" + PersonID + ", Sex=" + Sex + ", BirthDate=" + BirthDate + ", DoctorID=" + DoctorID + '}';
+    }
+    
     
 }

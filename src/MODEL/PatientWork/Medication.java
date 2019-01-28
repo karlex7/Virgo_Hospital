@@ -14,7 +14,6 @@ public class Medication {
         this.MedicationName = MedicationName;
         this.Cost = Cost;
     }
-
     
     public int getIDMedication(){
         return IDMedication;

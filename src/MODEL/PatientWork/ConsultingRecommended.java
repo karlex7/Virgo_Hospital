@@ -10,11 +10,13 @@ public class ConsultingRecommended {
     private int PatientID;
     private boolean Paid;
 
-    public ConsultingRecommended(int ConsultingID, int PatientID, boolean Paid) {
+    public ConsultingRecommended(int IDConsultingRecommended, int ConsultingID, int PatientID, boolean Paid) {
+        this.IDConsultingRecommended = IDConsultingRecommended;
         this.ConsultingID = ConsultingID;
         this.PatientID = PatientID;
         this.Paid = Paid;
     }
+
     public int getIDConsultingRecommended(){
         return IDConsultingRecommended;
     }

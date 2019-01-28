@@ -10,11 +10,13 @@ public class BasicComplaints {
     private String HistoryOfPreviouseTreatment;
     private String HospitalLastTreated;
 
-    public BasicComplaints(String StateOfComplaints, String HistoryOfPreviouseTreatment, String HospitalLastTreated) {
+    public BasicComplaints(int IDBasicComplaints, String StateOfComplaints, String HistoryOfPreviouseTreatment, String HospitalLastTreated) {
+        this.IDBasicComplaints = IDBasicComplaints;
         this.StateOfComplaints = StateOfComplaints;
         this.HistoryOfPreviouseTreatment = HistoryOfPreviouseTreatment;
         this.HospitalLastTreated = HospitalLastTreated;
     }
+
     public int getIDBasicComplaints(){
         return IDBasicComplaints;
     }

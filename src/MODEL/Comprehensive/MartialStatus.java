@@ -7,10 +7,13 @@ package MODEL.Comprehensive;
 public class MartialStatus {
     private int IDMartialStatus;
     private String MartialStatusName;
-    
-    public String getMartialStatusName(){
-        return MartialStatusName;
+
+    public MartialStatus(int IDMartialStatus, String MartialStatusName) {
+        this.IDMartialStatus = IDMartialStatus;
+        this.MartialStatusName = MartialStatusName;
     }
+    
+   
     public int getIDMartialStatus(){
         return IDMartialStatus;
     }

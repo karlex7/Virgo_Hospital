@@ -10,11 +10,14 @@ public class ContactDetails {
     private int AdressPermanentID;
     private int ElectronicContactID;
 
-    public ContactDetails(int AdressPresentID, int AdressPermanentID, int ElectronicContactID) {
+    public ContactDetails(int IDContactDetails, int AdressPresentID, int AdressPermanentID, int ElectronicContactID) {
+        this.IDContactDetails = IDContactDetails;
         this.AdressPresentID = AdressPresentID;
         this.AdressPermanentID = AdressPermanentID;
         this.ElectronicContactID = ElectronicContactID;
     }
+
+    
     public int getIDContactDetails(){
         return IDContactDetails;
     }

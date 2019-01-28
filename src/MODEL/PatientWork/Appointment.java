@@ -12,10 +12,12 @@ public class Appointment {
     private int PatientID;
     private Date AppointmentDate;
 
-    public Appointment(int PatientID, Date AppointmentDate) {
+    public Appointment(int IDAppointment, int PatientID, Date AppointmentDate) {
+        this.IDAppointment = IDAppointment;
         this.PatientID = PatientID;
         this.AppointmentDate = AppointmentDate;
     }
+
     public int getIDAppointment(){
         return IDAppointment;
     }

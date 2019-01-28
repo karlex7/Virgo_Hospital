@@ -8,10 +8,12 @@ public class Doctor extends MedicalPersonnel{
     private int IDDoctor;
     private int MedicalPersonnelID;
 
-    public Doctor(int MedicalPersonnelID, int PersonID, String FirstName, String MidleName, String Surname) {
-        super(PersonID, FirstName, MidleName, Surname);
+    public Doctor(int IDDoctor, int MedicalPersonnelID, int IDMedicalPersonnel, int PersonID, int IDPerson, String FirstName, String MidleName, String Surname) {
+        super(IDMedicalPersonnel, PersonID, IDPerson, FirstName, MidleName, Surname);
+        this.IDDoctor = IDDoctor;
         this.MedicalPersonnelID = MedicalPersonnelID;
     }
+
     public int getIDDoctor(){
         return IDDoctor;
     }

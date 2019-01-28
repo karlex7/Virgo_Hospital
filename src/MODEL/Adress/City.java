@@ -10,11 +10,13 @@ public class City{
     private int StateID;
     private String ZipCode;
 
-    public City(String CityName, int StateID, String ZipCode) {
+    public City(int IDCity, String CityName, int StateID, String ZipCode) {
+        this.IDCity = IDCity;
         this.CityName = CityName;
         this.StateID = StateID;
         this.ZipCode = ZipCode;
     }
+
     public int getIDCity(){
         return IDCity;
     }

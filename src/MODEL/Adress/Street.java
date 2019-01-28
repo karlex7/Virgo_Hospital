@@ -9,10 +9,12 @@ public class Street{
     private String StreetName;
     private int CityID;
 
-    public Street(String StreetName, int CityID) {
+    public Street(int IDStreet, String StreetName, int CityID) {
+        this.IDStreet = IDStreet;
         this.StreetName = StreetName;
         this.CityID = CityID;
     }
+
     public int getID(){
         return IDStreet;
     }

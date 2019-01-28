@@ -11,8 +11,10 @@ public class NextOfKin extends Person{
     private int PersonID;
     private String RelationShip;
 
-    public NextOfKin(String RelationShip, String FirstName, String MidleName, String Surname) {
-        super(FirstName, MidleName, Surname);
+    public NextOfKin(int IDNextOfKin, int PersonID, String RelationShip, int IDPerson, String FirstName, String MidleName, String Surname) {
+        super(IDPerson, FirstName, MidleName, Surname);
+        this.IDNextOfKin = IDNextOfKin;
+        this.PersonID = PersonID;
         this.RelationShip = RelationShip;
     }
 

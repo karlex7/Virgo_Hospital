@@ -9,10 +9,12 @@ public class Diagnose {
     private int PatientID;
     private String Note;
 
-    public Diagnose(int PatientID, String Note) {
+    public Diagnose(int IDDiagnose, int PatientID, String Note) {
+        this.IDDiagnose = IDDiagnose;
         this.PatientID = PatientID;
         this.Note = Note;
     }
+
     public int getIDDiagnose(){
         return IDDiagnose;
     }

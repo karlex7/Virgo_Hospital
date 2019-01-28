@@ -39,7 +39,7 @@ public interface IRepo {
     Person getPerson(int IDPerson);
     Patient getPatient(int IDPatient);
     NextOfKin getNextOfKin(int IDNextOfKin);
-    MiniRegForm getMiniRegForm(int IDMiniRegForm);
+    MiniRegForm getMiniRegForm(int IDPatient);
     Adress getAdress(int IDAdress);
     States getStates(int IDStates);
     City getCity(int IDCity);
@@ -55,6 +55,7 @@ public interface IRepo {
     ComprehensiveRegistrationForm getComprehensiveRegistrationForm(int IDComprehensiveRegistrationForm);
     MedicalPersonnel getMedicalPersonnel(int IDMedicalPersonnel);
     Doctor getDoctor(int IDDoctor);
+    SpecialistConsultant getSpecialistConsultant(int IDScepicalistConsultant);
     //Appointment getAppointment(int IDAppointment);
     //Diagnose getDiagnose(int IDDiagnose);
     

@@ -12,13 +12,16 @@ public class PersonalDetails {
     private int WeightPerson;
     private int BloodTypeID;
 
-    public PersonalDetails(int MartialStatusID, int NoOfDependets, int HeightPerson, int WeightPerson, int BloodTypeID) {
+    public PersonalDetails(int IDPersonalDetails, int MartialStatusID, int NoOfDependets, int HeightPerson, int WeightPerson, int BloodTypeID) {
+        this.IDPersonalDetails = IDPersonalDetails;
         this.MartialStatusID = MartialStatusID;
         this.NoOfDependets = NoOfDependets;
         this.HeightPerson = HeightPerson;
         this.WeightPerson = WeightPerson;
         this.BloodTypeID = BloodTypeID;
     }
+
+    
     public int getIDPersonalDetails(){
         return IDPersonalDetails;
     }

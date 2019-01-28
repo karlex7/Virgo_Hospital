@@ -12,13 +12,15 @@ public class ElectronicContact {
     private String Fax;
     private String Email;
 
-    public ElectronicContact(String Telephone, String Mobile, String Pager, String Fax, String Email) {
+    public ElectronicContact(int IDElectronicContact, String Telephone, String Mobile, String Pager, String Fax, String Email) {
+        this.IDElectronicContact = IDElectronicContact;
         this.Telephone = Telephone;
         this.Mobile = Mobile;
         this.Pager = Pager;
         this.Fax = Fax;
         this.Email = Email;
     }
+
     public int getIDElectronicContact(){
         return IDElectronicContact;
     }

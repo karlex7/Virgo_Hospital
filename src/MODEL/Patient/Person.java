@@ -10,11 +10,14 @@ public class Person {
     private String MidleName;
     private String Surname;
 
-    public Person(String FirstName, String MidleName, String Surname) {
+    public Person(int IDPerson, String FirstName, String MidleName, String Surname) {
+        this.IDPerson = IDPerson;
         this.FirstName = FirstName;
         this.MidleName = MidleName;
         this.Surname = Surname;
     }
+
+    
     public int getIDPerson(){
         return IDPerson;
     }

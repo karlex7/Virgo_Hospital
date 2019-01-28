@@ -71,6 +71,7 @@ public class SqlRepo implements IRepo{
     private static final String GET_ALL_APPOINTMENTS = "{ CALL GetAllAppointments (?) }";
     private static final String GET_MEDICAL_PERSONNEL = "{ CALL GetMedicalPersonnel (?) }";
     private static final String GET_DOCTOR = "{ CALL GetDoctor (?) }";
+    private static final String GET_SPECIALIST_CONSULTANT = "{ CALL GetSpecialistConsultant (?) }";
     private static final String GET_PATIENTS_BY_DOCTOR = "{ CALL GetPatientsByDoctor (?) }";
     private static final String GET_PATIENTS = "{ CALL GetPatients (?) }";
     private static final String GET_DIAGNOSE = "{ CALL GetDiagnose (?) }";
@@ -469,6 +470,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new Person(
+                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname"));
@@ -489,9 +491,12 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new Patient(
+                                resultSet.getInt("IDPatient"),
+                                resultSet.getInt("PersonID"),
                                 resultSet.getString("Sex"),
                                 resultSet.getDate("BirthDate"),
                                 resultSet.getInt("DoctorID"),
+                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname"));
@@ -512,7 +517,10 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new NextOfKin(
+                                resultSet.getInt("IDNextOfKin"),
+                                resultSet.getInt("PersonID"),
                                 resultSet.getString("Relationship"),
+                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname"));
@@ -525,14 +533,15 @@ public class SqlRepo implements IRepo{
     }
 
     @Override
-    public MiniRegForm getMiniRegForm(int IDMiniRegForm) {
+    public MiniRegForm getMiniRegForm(int IDPatient) {
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
         try (Connection con = dataSource.getConnection();
                 CallableStatement stmt = con.prepareCall(GET_MINI_REG_FORM)){
-                stmt.setInt(1, IDMiniRegForm);
+                stmt.setInt(1, IDPatient);
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new MiniRegForm(
+                                resultSet.getInt("IDMiniRegForm"),
                                 resultSet.getDate("RegDate"),
                                 resultSet.getInt("PatientID"), 
                                 resultSet.getString("BriefStatementOfComplaint"),
@@ -555,6 +564,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new Adress(
+                                resultSet.getInt("IDAdress"),
                                 resultSet.getInt("StatesID"),
                                 resultSet.getInt("CityID"),
                                 resultSet.getInt("StreetID"),
@@ -576,6 +586,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new States(
+                                resultSet.getInt("IDStates"),
                                 resultSet.getString("StateName"));
                 }
             }   
@@ -594,6 +605,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new City(
+                                resultSet.getInt("IDCity"),
                                 resultSet.getString("CityName"),
                                 resultSet.getInt("StatesID"),
                                 resultSet.getString("ZipCode"));
@@ -614,6 +626,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new Street(
+                                resultSet.getInt("IDStreet"),
                                 resultSet.getString("StreetName"),
                                 resultSet.getInt("CityID"));
                 }
@@ -633,6 +646,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new ElectronicContact(
+                                resultSet.getInt("IDElectronicContact"),
                                 resultSet.getString("Telephone"),
                                 resultSet.getString("Mobile"),
                                 resultSet.getString("Pager"),
@@ -655,6 +669,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new ContactDetails(
+                                resultSet.getInt("IDContactDetails"),
                                 resultSet.getInt("AdressPresentID"),
                                 resultSet.getInt("AdressPermanentID"),
                                 resultSet.getInt("ElectronicContactID"));
@@ -675,6 +690,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new ContactNextOfKin(
+                                resultSet.getInt("IDContactNextOfKin"),
                                 resultSet.getInt("NextOfKinID"),
                                 resultSet.getInt("AdressID"),
                                 resultSet.getInt("ElectronicContactID"));
@@ -695,6 +711,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new PersonalDetails(
+                                resultSet.getInt("IDPersonalDetails"),
                                 resultSet.getInt("MartialStatusID"),
                                 resultSet.getInt("NoOfDependents"),
                                 resultSet.getInt("HeightPerson"),
@@ -717,6 +734,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new ProfessionDetails(
+                                resultSet.getInt("IDProfessionDetails"),
                                 resultSet.getString("Occupation"),
                                 resultSet.getInt("GrossAnnualIncome"));
                 }
@@ -736,6 +754,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new LifeStyle(
+                                resultSet.getInt("IDLifeStyle"),
                                 resultSet.getBoolean("Vegetarian"),
                                 resultSet.getBoolean("Smoker"),
                                 resultSet.getBoolean("ConsumeAlcohol"),
@@ -763,6 +782,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new BasicComplaints(
+                                resultSet.getInt("IDBasicComplaints"),
                                 resultSet.getString("StateOfComplaint"),
                                 resultSet.getString("HistoryOfPreviouseTreatment"),
                                 resultSet.getString("HospitalLastTreated"));
@@ -783,6 +803,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new ImportantMedicalComplaints(
+                                resultSet.getInt("IDImportantMedicalComplaints"),
                                 resultSet.getBoolean("Diabetic"),
                                 resultSet.getBoolean("Hypertensive"),
                                 resultSet.getBoolean("CardiacCondition"),
@@ -811,6 +832,7 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new ComprehensiveRegistrationForm(
+                                resultSet.getInt("IDComprehensiveRegistrationForm"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getDate("RegDate"),
                                 resultSet.getInt("ContactDetailsID"),
@@ -837,7 +859,9 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new MedicalPersonnel(
+                                resultSet.getInt("IDMedicalPersonnel"),
                                 resultSet.getInt("PersonID"),
+                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname"));
@@ -858,8 +882,35 @@ public class SqlRepo implements IRepo{
             try(ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
                     return new Doctor(
+                                resultSet.getInt("IDDoctor"),
                                 resultSet.getInt("MedicalPersonnelID"),
+                                resultSet.getInt("IDMedicalPersonnel"),
                                 resultSet.getInt("PersonID"),
+                                resultSet.getInt("IDPerson"),
+                                resultSet.getString("FirstName"), 
+                                resultSet.getString("MidleName"),
+                                resultSet.getString("Surname"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
+    public SpecialistConsultant getSpecialistConsultant(int IDScepicalistConsultant) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_SPECIALIST_CONSULTANT)){
+                stmt.setInt(1, IDScepicalistConsultant);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new SpecialistConsultant(
+                                resultSet.getInt("IDSpecialistConsultant"),
+                                resultSet.getInt("MedicalPersonnelID"),
+                                resultSet.getInt("IDMedicalPersonnel"),
+                                resultSet.getInt("PersonID"),
+                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname"));
@@ -875,24 +926,27 @@ public class SqlRepo implements IRepo{
     public List<Patient> getPatientsByDoctor(int DoctorID) {
         List<Patient> patients = new ArrayList<>();
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
-        try (Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(GET_PATIENTS_BY_DOCTOR);
-                ResultSet resultSet = stmt.executeQuery()){
-                    while (resultSet.next()) {
-                        patients.add(
-                                new Patient(
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_PATIENTS_BY_DOCTOR)) {
+            stmt.setInt(1, DoctorID);
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    patients.add(
+                            new Patient(
+                                resultSet.getInt("IDPatient"),
+                                resultSet.getInt("PersonID"),
                                 resultSet.getString("Sex"),
                                 resultSet.getDate("BirthDate"),
                                 resultSet.getInt("DoctorID"),
+                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname")));
-                    }
-            return patients;
-            
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }        
         return patients;
     }
 
@@ -906,6 +960,7 @@ public class SqlRepo implements IRepo{
                     while (resultSet.next()) {
                         diagnoses.add(
                                 new Diagnose(
+                                resultSet.getInt("IDDiagnose"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getString("Note")));
                     }
@@ -927,6 +982,7 @@ public class SqlRepo implements IRepo{
                     while (resultSet.next()) {
                         labTestRecommendeds.add(
                                 new LabTestRecommended(
+                                resultSet.getInt("IDLabtestRecommended"),
                                 resultSet.getInt("LabTestID"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getBoolean("Paid")));
@@ -949,6 +1005,7 @@ public class SqlRepo implements IRepo{
                     while (resultSet.next()) {
                         medicationsPrescribeds.add(
                                 new MedicationsPrescribed(
+                                resultSet.getInt("IDMedicationsPrescribed"),
                                 resultSet.getInt("MedicationID"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getBoolean("Paid")));
@@ -971,6 +1028,7 @@ public class SqlRepo implements IRepo{
                     while (resultSet.next()) {
                         consultingRecommendeds.add(
                                 new ConsultingRecommended(
+                                resultSet.getInt("IDConsultingRecommended"),
                                 resultSet.getInt("ConsultingID"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getBoolean("Paid")));
@@ -993,6 +1051,7 @@ public class SqlRepo implements IRepo{
                     while (resultSet.next()) {
                         appointments.add(
                                 new Appointment(
+                                resultSet.getInt("IDAppointment"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getDate("AppointmentDate")));
                     }
@@ -1119,6 +1178,8 @@ public class SqlRepo implements IRepo{
             e.printStackTrace();
         }   
     }
+
+    
 
     
 

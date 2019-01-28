@@ -8,8 +8,10 @@ public class SpecialistConsultant extends MedicalPersonnel{
     private int IDSpecialistConsultant;
     private int MedicalPersonnelID;
 
-    public SpecialistConsultant(int PersonID, String FirstName, String MidleName, String Surname) {
-        super(PersonID, FirstName, MidleName, Surname);
+    public SpecialistConsultant(int IDSpecialistConsultant, int MedicalPersonnelID, int IDMedicalPersonnel, int PersonID, int IDPerson, String FirstName, String MidleName, String Surname) {
+        super(IDMedicalPersonnel, PersonID, IDPerson, FirstName, MidleName, Surname);
+        this.IDSpecialistConsultant = IDSpecialistConsultant;
+        this.MedicalPersonnelID = MedicalPersonnelID;
     }
 
     public int getIDSpecialistConsultant(){

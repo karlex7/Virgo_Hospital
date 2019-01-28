@@ -7,10 +7,12 @@ package MODEL.Comprehensive;
 public class BloodType {
     private int IDBloodType;
     private String BloodTypeName;
-    
-    public String getBloodTypeName(){
-        return BloodTypeName;
+
+    public BloodType(int IDBloodType, String BloodTypeName) {
+        this.IDBloodType = IDBloodType;
+        this.BloodTypeName = BloodTypeName;
     }
+    
     public int getIDBloodType(){
         return IDBloodType;
     }

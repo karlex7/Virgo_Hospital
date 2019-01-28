@@ -15,6 +15,7 @@ public class LabTest {
         this.Cost = Cost;
     }
 
+    
     public int getIDLabTest(){
         return IDLabTest;
     }

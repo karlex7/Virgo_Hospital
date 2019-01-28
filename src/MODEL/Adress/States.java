@@ -8,9 +8,11 @@ public class States {
     private int IDState;
     private String StateName;
 
-    public States(String StateName) {
+    public States(int IDState, String StateName) {
+        this.IDState = IDState;
         this.StateName = StateName;
     }
+
     public int getID(){
         return IDState;
     }

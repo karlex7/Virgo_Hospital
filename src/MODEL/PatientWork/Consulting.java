@@ -9,14 +9,13 @@ public class Consulting {
     private String ConsultingName;
     private int SpecialistConsultantID;
     private int Cost;
-
+    
     public Consulting(int IDConsulting, String ConsultingName, int SpecialistConsultantID, int Cost) {
         this.IDConsulting = IDConsulting;
         this.ConsultingName = ConsultingName;
         this.SpecialistConsultantID = SpecialistConsultantID;
         this.Cost = Cost;
     }
-
     public int getIDConsulting(){
         return IDConsulting;
     }
