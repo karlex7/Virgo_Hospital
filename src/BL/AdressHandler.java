@@ -13,4 +13,16 @@ public class AdressHandler extends HandlerBase{
     public Adress getAdress(int IDAdress){
         return repo.getAdress(IDAdress);
     }
+    //-------------------------------------------------------------
+    public States getStates(int  IDStates){
+        return repo.getStates(IDStates);
+    }
+    //-------------------------------------------------------------
+    public City getCity(int IDCity){
+        return repo.getCity(IDCity);
+    }
+    //-------------------------------------------------------------
+    public Street getStreet(int IDStreet){
+        return repo.getStreet(IDStreet);
+    }
 }

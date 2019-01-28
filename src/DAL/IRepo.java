@@ -56,8 +56,11 @@ public interface IRepo {
     MedicalPersonnel getMedicalPersonnel(int IDMedicalPersonnel);
     Doctor getDoctor(int IDDoctor);
     SpecialistConsultant getSpecialistConsultant(int IDScepicalistConsultant);
-    //Appointment getAppointment(int IDAppointment);
-    //Diagnose getDiagnose(int IDDiagnose);
+    LabTest getLabTest(int IDLabtest);
+    Medication getMedication(int IDMedication);
+    Consulting getConsulting(int IDConsulting);
+    Appointment getAppointment(int IDAppointment);
+    Diagnose getDiagnose(int IDDiagnose);
     
     
     List<Patient> getPatientsByDoctor(int DoctorID);

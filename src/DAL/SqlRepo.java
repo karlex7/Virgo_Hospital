@@ -1147,7 +1147,7 @@ public class SqlRepo implements IRepo{
     public void payLabTest(int LabTestRecommended) {
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
         try(Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(ASSIGN_DOCTOR_TO_PATIENT)) {
+                CallableStatement stmt = con.prepareCall(PAY_LAB_TEST)) {
             stmt.setInt(1, LabTestRecommended);
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -1159,7 +1159,7 @@ public class SqlRepo implements IRepo{
     public void payMedication(int MedicationPrescribed) {
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
         try(Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(ASSIGN_DOCTOR_TO_PATIENT)) {
+                CallableStatement stmt = con.prepareCall(PAY_MEDICATION)) {
             stmt.setInt(1, MedicationPrescribed);
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -1171,12 +1171,113 @@ public class SqlRepo implements IRepo{
     public void payConsulting(int ConsultingRecommended) {
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
         try(Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(ASSIGN_DOCTOR_TO_PATIENT)) {
+                CallableStatement stmt = con.prepareCall(PAY_CONSULTING)) {
             stmt.setInt(1, ConsultingRecommended);
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }   
+    }
+
+    @Override
+    public LabTest getLabTest(int IDLabtest) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_LAB_TEST)){
+                stmt.setInt(1, IDLabtest);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new LabTest(
+                                resultSet.getInt("IDLabTest"),
+                                resultSet.getString("LabTestName"),
+                                resultSet.getInt("Cost"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Medication getMedication(int IDMedication) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_MEDICATION)){
+                stmt.setInt(1, IDMedication);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Medication(
+                                resultSet.getInt("IDMedication"),
+                                resultSet.getString("MedicationName"),
+                                resultSet.getInt("Cost"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Consulting getConsulting(int IDConsulting) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_CONSULTING)){
+                stmt.setInt(1, IDConsulting);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Consulting(
+                                resultSet.getInt("IDConsulting"),
+                                resultSet.getString("ConsultingName"),
+                                resultSet.getInt("SpecialistConsultantID"),
+                                resultSet.getInt("Cost"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Appointment getAppointment(int IDAppointment) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_APPOINTMENT)){
+                stmt.setInt(1, IDAppointment);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Appointment(
+                                resultSet.getInt("IDAppointment"),
+                                resultSet.getInt("PatientID"),
+                                resultSet.getDate("AppointmentDate"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Diagnose getDiagnose(int IDDiagnose) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_DIAGNOSE)){
+                stmt.setInt(1, IDDiagnose);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Diagnose(
+                                resultSet.getInt("IDDiagnose"),
+                                resultSet.getInt("PatientID"),
+                                resultSet.getString("Note"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     
