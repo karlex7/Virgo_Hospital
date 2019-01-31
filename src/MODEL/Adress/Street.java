@@ -27,4 +27,10 @@ public class Street{
     public void setIDStreet(int id){
         IDStreet=id;
     }
+
+    @Override
+    public String toString() {
+        return "Street{" + "IDStreet=" + IDStreet + ", StreetName=" + StreetName + ", CityID=" + CityID + '}';
+    }
+    
 }

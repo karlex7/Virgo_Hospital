@@ -32,4 +32,10 @@ public class City{
     public void setIDCity(int id){
         IDCity=id;
     }
+
+    @Override
+    public String toString() {
+        return "City{" + "IDCity=" + IDCity + ", CityName=" + CityName + ", StateID=" + StateID + ", ZipCode=" + ZipCode + '}';
+    }
+    
 }

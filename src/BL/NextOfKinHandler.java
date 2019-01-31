@@ -8,8 +8,8 @@ import MODEL.Mini.NextOfKin;
  */
 public class NextOfKinHandler extends HandlerBase{
     
-    public void insertNextOfKin(NextOfKin nextOfKin){
-        repo.insertNextOfKin(nextOfKin);
+    public int insertNextOfKin(NextOfKin nextOfKin){
+        return repo.insertNextOfKin(nextOfKin);
     }
     public NextOfKin getNextOfKin(int idNextOfKin){
         return repo.getNextOfKin(idNextOfKin);

@@ -10,6 +10,15 @@ public class MedicalPersonnel extends Person{
     private int IDMedicalPersonnel;
     private int PersonID;
 
+    public MedicalPersonnel() {
+    }
+
+    public MedicalPersonnel(int IDMedicalPersonnel, int PersonID) {
+        this.IDMedicalPersonnel = IDMedicalPersonnel;
+        this.PersonID = PersonID;
+    }
+
+    
     public MedicalPersonnel(int IDMedicalPersonnel, int PersonID, int IDPerson, String FirstName, String MidleName, String Surname) {
         super(IDPerson, FirstName, MidleName, Surname);
         this.IDMedicalPersonnel = IDMedicalPersonnel;

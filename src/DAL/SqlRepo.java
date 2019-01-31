@@ -13,6 +13,7 @@ import MODEL.Patient.*;
 import MODEL.PatientWork.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -46,6 +47,7 @@ public class SqlRepo implements IRepo{
     private static final String INSERT_MEDICATIONS_PRESCRIBED= "{ CALL InsertMedicationsPrescribed (?,?,?) }";
     private static final String INSERT_CONSULTING_RECOMMENDED= "{ CALL InsertConsultingRecommended (?,?,?) }";
     private static final String INSERT_APPOINTMENT= "{ CALL InsertAppointment (?,?,?) }";
+    
     
     private static final String GET_PERSON = "{ CALL GetPerson (?) }";
     private static final String GET_PATIENT = "{ CALL GetPatient (?) }";
@@ -85,6 +87,12 @@ public class SqlRepo implements IRepo{
     private static final String GET_ALL_MEDICATION = "{ CALL GetAllMedication }";
     private static final String GET_ALL_LAB_TEST = "{ CALL GetAllLabTest }";
     private static final String GET_ALL_CONSULTING = "{ CALL GetALLConsulting }";
+    private static final String GET_ALL_STATES = "{ CALL GetAllStates }";
+    private static final String GET_ALL_CITY = "{ CALL GetAllCity }";
+    private static final String GET_ALL_STREET = "{ CALL GetAllStreet }";
+    private static final String GET_CITYID_BY_NAME = "{ CALL GetCityIDByName (?) }";
+    private static final String GET_STREETID_BY_NAME = "{ CALL GetStreetIDByName (?) }";
+    private static final String GET_STATEID_BY_NAME = "{ CALL GetStateIDByName (?) }";
     
     private static final String ASSIGN_DOCTOR_TO_PATIENT = "{ CALL AsignDoctorToPatient (?),(?) }";
     private static final String PAY_LAB_TEST = "{ CALL PayLabTest (?) }";
@@ -860,11 +868,7 @@ public class SqlRepo implements IRepo{
                 if (resultSet.next()) {
                     return new MedicalPersonnel(
                                 resultSet.getInt("IDMedicalPersonnel"),
-                                resultSet.getInt("PersonID"),
-                                resultSet.getInt("IDPerson"),
-                                resultSet.getString("FirstName"), 
-                                resultSet.getString("MidleName"),
-                                resultSet.getString("Surname"));
+                                resultSet.getInt("PersonID"));
                 }
             }   
         } catch (Exception e) {
@@ -883,13 +887,7 @@ public class SqlRepo implements IRepo{
                 if (resultSet.next()) {
                     return new Doctor(
                                 resultSet.getInt("IDDoctor"),
-                                resultSet.getInt("MedicalPersonnelID"),
-                                resultSet.getInt("IDMedicalPersonnel"),
-                                resultSet.getInt("PersonID"),
-                                resultSet.getInt("IDPerson"),
-                                resultSet.getString("FirstName"), 
-                                resultSet.getString("MidleName"),
-                                resultSet.getString("Surname"));
+                                resultSet.getInt("MedicalPersonnelID"));
                 }
             }   
         } catch (Exception e) {
@@ -1278,6 +1276,123 @@ public class SqlRepo implements IRepo{
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<States> getAllStateses() {
+        List<States> states = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_STATES);
+                ResultSet resultSet = stmt.executeQuery()){
+                    while (resultSet.next()) {
+                        states.add(
+                                new States(
+                                resultSet.getInt("IDStates"),
+                                resultSet.getString("StateName")));
+                    }
+            return states;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return states;
+    }
+
+    @Override
+    public List<City> getAllCity() {
+        List<City> citys = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_CITY);
+                ResultSet resultSet = stmt.executeQuery()){
+                    while (resultSet.next()) {
+                        citys.add(
+                                new City(
+                                resultSet.getInt("IDCity"),
+                                resultSet.getString("CityName"),
+                                resultSet.getInt("StatesID"),
+                                resultSet.getString("ZipCode")));
+                    }
+            return citys;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return citys;
+    }
+
+    @Override
+    public List<Street> getAllStreets() {
+        List<Street> streets = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_STREET);
+                ResultSet resultSet = stmt.executeQuery()){
+                    while (resultSet.next()) {
+                        streets.add(
+                                new Street(
+                                resultSet.getInt("IDStreet"),
+                                resultSet.getString("StreetName"),
+                                resultSet.getInt("CityID")));
+                    }
+            return streets;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return streets;
+    }
+
+    @Override
+    public int getCityIdByName(String CityName) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_CITYID_BY_NAME)){
+                stmt.setString(1, CityName);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Integer(resultSet.getInt("IDCity"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public int getStreetIdByName(String StreetName) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_STREETID_BY_NAME)){
+                stmt.setString(1, StreetName);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Integer(resultSet.getInt("IDStreet"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public int getStateIdByName(String StateName) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_STATEID_BY_NAME)){
+                stmt.setString(1, StateName);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Integer(resultSet.getInt("IDStates"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     

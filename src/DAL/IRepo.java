@@ -72,6 +72,13 @@ public interface IRepo {
     List<Medication> getMedications();
     List<LabTest> getLabTests();
     List<Consulting> getConsultings();
+    List<States> getAllStateses();
+    List<City> getAllCity();
+    List<Street> getAllStreets();
+    
+    int getCityIdByName(String CityName);
+    int getStreetIdByName(String StreetName);
+    int getStateIdByName(String StateName);
     
     //UPDATE
     void asignDoctorToPatient(int PatientID, int DoctorID);

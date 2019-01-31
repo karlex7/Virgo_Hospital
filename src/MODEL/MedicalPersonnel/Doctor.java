@@ -14,6 +14,12 @@ public class Doctor extends MedicalPersonnel{
         this.MedicalPersonnelID = MedicalPersonnelID;
     }
 
+    public Doctor(int IDDoctor, int MedicalPersonnelID) {
+        this.IDDoctor = IDDoctor;
+        this.MedicalPersonnelID = MedicalPersonnelID;
+    }
+    
+
     public int getIDDoctor(){
         return IDDoctor;
     }

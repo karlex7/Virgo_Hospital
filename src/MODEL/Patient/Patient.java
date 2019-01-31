@@ -15,6 +15,23 @@ public class Patient extends Person{
     private Date BirthDate;
     private int DoctorID;
 
+    
+    public Patient() {
+    }
+
+    public Patient(String Sex, Date BirthDate, String FirstName, String MidleName, String Surname) {
+        super(FirstName, MidleName, Surname);
+        this.Sex = Sex;
+        this.BirthDate = BirthDate;
+    }
+    
+    
+    public Patient(int PersonID, String Sex, Date BirthDate) {
+        this.PersonID = PersonID;
+        this.Sex = Sex;
+        this.BirthDate = BirthDate;
+    }
+
     public Patient(int IDPatient, int PersonID, String Sex, Date BirthDate, int DoctorID, int IDPerson, String FirstName, String MidleName, String Surname) {
         super(IDPerson, FirstName, MidleName, Surname);
         this.IDPatient = IDPatient;

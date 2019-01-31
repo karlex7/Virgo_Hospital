@@ -17,6 +17,13 @@ public class ContactDetails {
         this.ElectronicContactID = ElectronicContactID;
     }
 
+    public ContactDetails(int AdressPresentID, int AdressPermanentID, int ElectronicContactID) {
+        this.AdressPresentID = AdressPresentID;
+        this.AdressPermanentID = AdressPermanentID;
+        this.ElectronicContactID = ElectronicContactID;
+    }
+    
+
     
     public int getIDContactDetails(){
         return IDContactDetails;

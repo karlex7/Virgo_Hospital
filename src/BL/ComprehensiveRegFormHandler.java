@@ -15,50 +15,50 @@ public class ComprehensiveRegFormHandler extends HandlerBase{
         return repo.getComprehensiveRegistrationForm(IDComprehensiveRegForm);
     }
     //-------------------------------------------------------------
-    public void insertContactDetails(ContactDetails contactDetails){
-        repo.insertContactDetails(contactDetails);
+    public int insertContactDetails(ContactDetails contactDetails){
+        return repo.insertContactDetails(contactDetails);
     }
     public ContactDetails getContactDetails(int IDContactDetails){
         return repo.getContactDetails(IDContactDetails);
     }
     //-------------------------------------------------------------
-    public void insertContactNextOfKin(ContactNextOfKin contactNextOfKin){
-        repo.insertContactNextOfKin(contactNextOfKin);
+    public int insertContactNextOfKin(ContactNextOfKin contactNextOfKin){
+        return repo.insertContactNextOfKin(contactNextOfKin);
     }
     public ContactNextOfKin getContactNextOfKin(int IDContactNextOfKin){
         return repo.getContactNextOfKin(IDContactNextOfKin);
     }
     //-------------------------------------------------------------
-    public void insertPersonalDetails(PersonalDetails personalDetails){
-        repo.insertPersonalDetails(personalDetails);
+    public int insertPersonalDetails(PersonalDetails personalDetails){
+        return repo.insertPersonalDetails(personalDetails);
     }
     public PersonalDetails getPersonalDetails(int IDPersonalDetails){
         return repo.getPersonalDetails(IDPersonalDetails);
     }
     //-------------------------------------------------------------
-    public void insertProfessionDetails(ProfessionDetails professionDetails){
-        repo.insertProfessionDetails(professionDetails);
+    public int insertProfessionDetails(ProfessionDetails professionDetails){
+        return repo.insertProfessionDetails(professionDetails);
     }
     public ProfessionDetails getProfessionDetails(int IDProfessionDetails){
         return repo.getProfessionDetails(IDProfessionDetails);
     }
     //-------------------------------------------------------------
-    public void insertLifeSytle(LifeStyle lifeStyle){
-        repo.insertLifeStyleDetails(lifeStyle);
+    public int insertLifeSytle(LifeStyle lifeStyle){
+        return repo.insertLifeStyleDetails(lifeStyle);
     }
     public LifeStyle getLifeStyle(int IDLifeStyle){
         return repo.getLifeStyle(IDLifeStyle);
     }
     //-------------------------------------------------------------
-    public void insertBasicComplaints(BasicComplaints basicComplaints){
-        repo.insertBasicDetails(basicComplaints);
+    public int insertBasicComplaints(BasicComplaints basicComplaints){
+        return repo.insertBasicDetails(basicComplaints);
     }
     public BasicComplaints getBasicComplaints(int IDBasicComplaints){
         return repo.getBasicComplaints(IDBasicComplaints);
     }
     //-------------------------------------------------------------
-    public void insertImportantMedicalComplaints(ImportantMedicalComplaints importantMedicalComplaints){
-        repo.insertImportantMedicalComplaints(importantMedicalComplaints);
+    public int insertImportantMedicalComplaints(ImportantMedicalComplaints importantMedicalComplaints){
+        return repo.insertImportantMedicalComplaints(importantMedicalComplaints);
     }
     public ImportantMedicalComplaints getImportantMedicalComplaints(int IDImportantMedicalComplaints){
         return repo.getImportantMedicalComplaints(IDImportantMedicalComplaints);

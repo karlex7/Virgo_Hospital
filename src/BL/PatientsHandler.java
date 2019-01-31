@@ -9,9 +9,15 @@ import java.util.List;
  * @author Karlo
  */
 public class PatientsHandler extends HandlerBase{
+    public  int insertPerson(Person p){
+        return repo.insertPerson(p);
+    }
+    public Person getPerson(int IDPerson){
+        return repo.getPerson(IDPerson);
+    }
     
-    public void insertPatient(Patient p){
-        repo.insertPatient(p);
+    public int insertPatient(Patient p){
+        return repo.insertPatient(p);
     }
     public Patient getPatient(int IDPatient){
         return repo.getPatient(IDPatient);

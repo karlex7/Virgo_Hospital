@@ -15,6 +15,15 @@ public class MiniRegForm {
     private String ContactTelephone;
     private int NextOfKinID;
 
+    public MiniRegForm(Date RegDate, int PatientID, String BriefStatementOfComplaint, String ContactTelephone, int NextOfKinID) {
+        this.RegDate = RegDate;
+        this.PatientID = PatientID;
+        this.BriefStatementOfComplaint = BriefStatementOfComplaint;
+        this.ContactTelephone = ContactTelephone;
+        this.NextOfKinID = NextOfKinID;
+    }
+    
+
     public MiniRegForm(int IDMiniRegForm, Date RegDate, int PatientID, String BriefStatementOfComplaint, String ContactTelephone, int NextOfKinID) {
         this.IDMiniRegForm = IDMiniRegForm;
         this.RegDate = RegDate;

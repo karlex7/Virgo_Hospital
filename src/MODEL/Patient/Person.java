@@ -10,6 +10,16 @@ public class Person {
     private String MidleName;
     private String Surname;
 
+    public Person() {
+    }
+
+    public Person(String FirstName, String MidleName, String Surname) {
+        this.FirstName = FirstName;
+        this.MidleName = MidleName;
+        this.Surname = Surname;
+    }
+    
+
     public Person(int IDPerson, String FirstName, String MidleName, String Surname) {
         this.IDPerson = IDPerson;
         this.FirstName = FirstName;
