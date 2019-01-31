@@ -17,6 +17,20 @@ public class LifeStyle {
     private int CigaretsPerDay;
     private int DrinksPerDay;
 
+    public LifeStyle(boolean Vegetarian, boolean Smoker, boolean ConsumeAlcohol, boolean UseStimulants, int ConsumptionOfCoffeTeaPerDay, int ConsumptionOfSoftDrinksPerDay, boolean RegularMeals, boolean EatHomePredominantly, int CigaretsPerDay, int DrinksPerDay) {
+        this.Vegetarian = Vegetarian;
+        this.Smoker = Smoker;
+        this.ConsumeAlcohol = ConsumeAlcohol;
+        this.UseStimulants = UseStimulants;
+        this.ConsumptionOfCoffeTeaPerDay = ConsumptionOfCoffeTeaPerDay;
+        this.ConsumptionOfSoftDrinksPerDay = ConsumptionOfSoftDrinksPerDay;
+        this.RegularMeals = RegularMeals;
+        this.EatHomePredominantly = EatHomePredominantly;
+        this.CigaretsPerDay = CigaretsPerDay;
+        this.DrinksPerDay = DrinksPerDay;
+    }
+    
+
     public LifeStyle(int IDLifeStyle, boolean Vegetarian, boolean Smoker, boolean ConsumeAlcohol, boolean UseStimulants, int ConsumptionOfCoffeTeaPerDay, int ConsumptionOfSoftDrinksPerDay, boolean RegularMeals, boolean EatHomePredominantly, int CigaretsPerDay, int DrinksPerDay) {
         this.IDLifeStyle = IDLifeStyle;
         this.Vegetarian = Vegetarian;

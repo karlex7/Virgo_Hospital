@@ -18,6 +18,21 @@ public class ImportantMedicalComplaints {
     private String KnownReactionToDrugs;
     private String MajorSurgeries;
 
+    public ImportantMedicalComplaints(boolean Diabetic, boolean Hypertensive, boolean CardiacCondition, boolean RespiratoryCondition, boolean DigestiveCondition, boolean OrthopedicCondition, boolean MuscularCondition, boolean NeurologicalCondition, String KnownAlergies, String KnownReactionToDrugs, String MajorSurgeries) {
+        this.Diabetic = Diabetic;
+        this.Hypertensive = Hypertensive;
+        this.CardiacCondition = CardiacCondition;
+        this.RespiratoryCondition = RespiratoryCondition;
+        this.DigestiveCondition = DigestiveCondition;
+        this.OrthopedicCondition = OrthopedicCondition;
+        this.MuscularCondition = MuscularCondition;
+        this.NeurologicalCondition = NeurologicalCondition;
+        this.KnownAlergies = KnownAlergies;
+        this.KnownReactionToDrugs = KnownReactionToDrugs;
+        this.MajorSurgeries = MajorSurgeries;
+    }
+    
+
     public ImportantMedicalComplaints(int IDImportantMedicalComplaints, boolean Diabetic, boolean Hypertensive, boolean CardiacCondition, boolean RespiratoryCondition, boolean DigestiveCondition, boolean OrthopedicCondition, boolean MuscularCondition, boolean NeurologicalCondition, String KnownAlergies, String KnownReactionToDrugs, String MajorSurgeries) {
         this.IDImportantMedicalComplaints = IDImportantMedicalComplaints;
         this.Diabetic = Diabetic;

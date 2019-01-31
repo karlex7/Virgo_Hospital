@@ -8,8 +8,8 @@ import java.util.List;
  * @author Karlo
  */
 public class AdressHandler extends HandlerBase{
-    public void insertAdress(Adress adress){
-        repo.insertAdress(adress);
+    public int insertAdress(Adress adress){
+        return repo.insertAdress(adress);
     }
     public Adress getAdress(int IDAdress){
         return repo.getAdress(IDAdress);

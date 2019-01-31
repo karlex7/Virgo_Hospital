@@ -36,7 +36,7 @@ public class SqlRepo implements IRepo{
     private static final String INSERT_ELECTRONIC_CONTACT= "{ CALL InsertElectronicContact (?,?,?,?,?,?) }";
     private static final String INSERT_CONTACT_DETAILS= "{ CALL InsertContactDetails (?,?,?,?) }";
     private static final String INSERT_CONTACT_NEXT_OF_KIN= "{ CALL InsertContactNextOfKin (?,?,?,?) }";
-    private static final String INSERT_PERSONAL_DETAILS= "{ CALL InsertContactNextOfKin (?,?,?,?,?,?) }";
+    private static final String INSERT_PERSONAL_DETAILS= "{ CALL InsertPersonalDetails (?,?,?,?,?,?) }";
     private static final String INSERT_PROFESSION_DETAILS= "{ CALL InsertProfessionDetails (?,?,?) }";
     private static final String INSERT_LIFE_STYLE= "{ CALL InsertLifeStyle (?,?,?,?,?,?,?,?,?,?,?) }";
     private static final String INSERT_BASIC_COMPLAINTS= "{ CALL InsertBasicComplaints (?,?,?,?) }";
@@ -260,11 +260,11 @@ public class SqlRepo implements IRepo{
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
         try(Connection con=dataSource.getConnection();
                 CallableStatement stmt=con.prepareCall(INSERT_PERSONAL_DETAILS)) {
-            stmt.setInt(1,personalDetails.getMartialStatusID());
+            stmt.setBoolean(1,personalDetails.getMartialStatusID());
             stmt.setInt(2,personalDetails.getNoOfDependets());
             stmt.setInt(3,personalDetails.getHeightPerson());
             stmt.setInt(4,personalDetails.getWeightPerson());
-            stmt.setInt(5,personalDetails.getBloodTypeID());
+            stmt.setString(5,personalDetails.getBloodTypeID());
             stmt.registerOutParameter(6, Types.INTEGER);
             
             stmt.executeUpdate();
@@ -720,11 +720,11 @@ public class SqlRepo implements IRepo{
                 if (resultSet.next()) {
                     return new PersonalDetails(
                                 resultSet.getInt("IDPersonalDetails"),
-                                resultSet.getInt("MartialStatusID"),
+                                resultSet.getBoolean("MartialStatus"),
                                 resultSet.getInt("NoOfDependents"),
                                 resultSet.getInt("HeightPerson"),
                                 resultSet.getInt("WeightPerson"),
-                                resultSet.getInt("BloodTypeID"));
+                                resultSet.getString("BloodType"));
                 }
             }   
         } catch (Exception e) {

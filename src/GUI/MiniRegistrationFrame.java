@@ -61,11 +61,10 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
         txtNextOfKinFirstName = new javax.swing.JTextField();
         txtNextOfKinMiddleName = new javax.swing.JTextField();
         txtNextOfKinSurname = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        ddlRelationship = new javax.swing.JList<>();
         btnSave = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         dateBrithDate = new com.toedter.calendar.JDateChooser();
+        cbRelationship = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,14 +104,6 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
         txtBriefStatement.setRows(5);
         jScrollPane1.setViewportView(txtBriefStatement);
 
-        ddlRelationship.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Mother", "Father", "Brother/Sister", "Grandmother /Grandfather", "other" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        ddlRelationship.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane2.setViewportView(ddlRelationship);
-
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +112,8 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
         });
 
         jLabel13.setText("Birth Date:");
+
+        cbRelationship.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mother", "Father", "Brother/Sister", "GrandMother/GrandFather", "other", " " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,11 +147,11 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtContactTelephone)
+                            .addComponent(txtContactTelephone, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                             .addComponent(txtNextOfKinFirstName)
                             .addComponent(txtNextOfKinMiddleName)
                             .addComponent(txtNextOfKinSurname)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)))
+                            .addComponent(cbRelationship, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,14 +222,11 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
                     .addComponent(txtNextOfKinSurname, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addComponent(btnSave)
-                        .addGap(16, 16, 16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jLabel12)
+                    .addComponent(cbRelationship, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(btnSave)
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -254,7 +244,7 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
         String NextOfKinMiddleName=txtNextOfKinMiddleName.getText();
         String NextOfKinSurname=txtNextOfKinSurname.getText();
         Date birthDate = new Date(dateBrithDate.getDate().getYear(),dateBrithDate.getDate().getMonth(),dateBrithDate.getDate().getDay());
-        String Relationship=ddlRelationship.getSelectedValue();
+        String Relationship=cbRelationship.getSelectedItem().toString();
         Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
         
         int idPatient=patientsHandler.insertPatient(new Patient(Sex, birthDate, FirstName, MiddleName, Surname));
@@ -301,8 +291,8 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupSex;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cbRelationship;
     private com.toedter.calendar.JDateChooser dateBrithDate;
-    private javax.swing.JList<String> ddlRelationship;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -317,7 +307,6 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton radioF;
     private javax.swing.JRadioButton radioM;
     private javax.swing.JTextArea txtBriefStatement;

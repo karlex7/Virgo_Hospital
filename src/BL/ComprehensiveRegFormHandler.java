@@ -63,4 +63,11 @@ public class ComprehensiveRegFormHandler extends HandlerBase{
     public ImportantMedicalComplaints getImportantMedicalComplaints(int IDImportantMedicalComplaints){
         return repo.getImportantMedicalComplaints(IDImportantMedicalComplaints);
     }
+    //-------------------------------------------------------------
+    public int insertElectronicContact(ElectronicContact electronicContact){
+        return repo.insertElectronicContact(electronicContact);
+    }
+    public ElectronicContact getElectronicContact(int IDElectronicContact){
+        return repo.getElectronicContact(IDElectronicContact);
+    }
 }

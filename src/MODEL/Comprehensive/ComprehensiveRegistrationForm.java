@@ -18,6 +18,19 @@ public class ComprehensiveRegistrationForm {
     private int BasicComplaintsID;
     private int ImportantMedicalComplaintsID;
 
+    public ComprehensiveRegistrationForm(int PatientID, Date RegDate, int ContactDetailsID, int ContactNextOfKinID, int PersonalDetailsID, int ProfessionDetailsID, int LifeStyleID, int BasicComplaintsID, int ImportantMedicalComplaintsID) {
+        this.PatientID = PatientID;
+        this.RegDate = RegDate;
+        this.ContactDetailsID = ContactDetailsID;
+        this.ContactNextOfKinID = ContactNextOfKinID;
+        this.PersonalDetailsID = PersonalDetailsID;
+        this.ProfessionDetailsID = ProfessionDetailsID;
+        this.LifeStyleID = LifeStyleID;
+        this.BasicComplaintsID = BasicComplaintsID;
+        this.ImportantMedicalComplaintsID = ImportantMedicalComplaintsID;
+    }
+    
+
     public ComprehensiveRegistrationForm(int IDComprehensiveRegistrationForm, int PatientID, Date RegDate, int ContactDetailsID, int ContactNextOfKinID, int PersonalDetailsID, int ProfessionDetailsID, int LifeStyleID, int BasicComplaintsID, int ImportantMedicalComplaintsID) {
         this.IDComprehensiveRegistrationForm = IDComprehensiveRegistrationForm;
         this.PatientID = PatientID;

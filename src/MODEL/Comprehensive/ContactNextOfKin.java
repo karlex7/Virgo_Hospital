@@ -10,6 +10,13 @@ public class ContactNextOfKin {
     private int AdressID;
     private int ElectronicContactID;
 
+    public ContactNextOfKin(int NextOfKinID, int AdressID, int ElectronicContactID) {
+        this.NextOfKinID = NextOfKinID;
+        this.AdressID = AdressID;
+        this.ElectronicContactID = ElectronicContactID;
+    }
+    
+
     public ContactNextOfKin(int IDContactNextOfKin, int NextOfKinID, int AdressID, int ElectronicContactID) {
         this.IDContactNextOfKin = IDContactNextOfKin;
         this.NextOfKinID = NextOfKinID;

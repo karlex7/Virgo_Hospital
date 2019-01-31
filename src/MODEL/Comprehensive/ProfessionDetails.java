@@ -9,6 +9,12 @@ public class ProfessionDetails {
     private String Occupation;
     private int GrossAnnualIncome;
 
+    public ProfessionDetails(String Occupation, int GrossAnnualIncome) {
+        this.Occupation = Occupation;
+        this.GrossAnnualIncome = GrossAnnualIncome;
+    }
+    
+
     public ProfessionDetails(int IDProfessionDetails, String Occupation, int GrossAnnualIncome) {
         this.IDProfessionDetails = IDProfessionDetails;
         this.Occupation = Occupation;
