@@ -54,4 +54,13 @@ public class PatientWorkHandler extends HandlerBase{
     public Consulting getConsulting(int IDConsultingRecommended){
         return repo.getConsulting(IDConsultingRecommended);
     }
+    public List<Medication> getAllMedications(){
+        return repo.getMedications();
+    }
+    public List<LabTest> getAllLabTests(){
+        return repo.getLabTests();
+    }
+    public List<Consulting> getAllConsultings(){
+        return repo.getConsultings();
+    }
 }

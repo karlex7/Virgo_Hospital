@@ -9,6 +9,12 @@ public class LabTest {
     private String LabTestName;
     private int Cost;
 
+    public LabTest(String LabTestName, int Cost) {
+        this.LabTestName = LabTestName;
+        this.Cost = Cost;
+    }
+
+    
     public LabTest(int IDLabTest, String LabTestName, int Cost) {
         this.IDLabTest = IDLabTest;
         this.LabTestName = LabTestName;
@@ -28,4 +34,10 @@ public class LabTest {
     public void setIDLabTest(int id){
         IDLabTest=id;
     }
+
+    @Override
+    public String toString() {
+        return "LabTest{" + "LabTestName=" + LabTestName + ", Cost=" + Cost + '}';
+    }
+    
 }

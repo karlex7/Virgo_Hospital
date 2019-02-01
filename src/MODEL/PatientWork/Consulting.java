@@ -31,4 +31,10 @@ public class Consulting {
     public void setIDConsulting(int id){
         IDConsulting=id;
     }
+
+    @Override
+    public String toString() {
+        return "Consulting{" + "ConsultingName=" + ConsultingName + ", Cost=" + Cost + '}';
+    }
+    
 }

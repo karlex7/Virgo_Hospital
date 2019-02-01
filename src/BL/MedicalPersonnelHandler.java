@@ -1,6 +1,7 @@
 package BL;
 
 import MODEL.MedicalPersonnel.*;
+import java.util.List;
 
 /**
  *
@@ -13,6 +14,9 @@ public class MedicalPersonnelHandler extends HandlerBase{
     }
     public Doctor getDoctor(int IDDoctor){
         return repo.getDoctor(IDDoctor);
+    }
+    public List<Doctor> getAllDoctors(){
+        return repo.getAllDoctors();
     }
     public SpecialistConsultant getSpecialistConsultant(int IDSpecialistConsultant){
         return repo.getSpecialistConsultant(IDSpecialistConsultant);

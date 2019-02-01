@@ -1420,7 +1420,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         insertComprehensiveRegForm();
-        //insertPersonalDetails();
+        this.setVisible(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnNextBasicComplaintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextBasicComplaintsActionPerformed

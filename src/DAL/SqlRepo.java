@@ -93,6 +93,7 @@ public class SqlRepo implements IRepo{
     private static final String GET_CITYID_BY_NAME = "{ CALL GetCityIDByName (?) }";
     private static final String GET_STREETID_BY_NAME = "{ CALL GetStreetIDByName (?) }";
     private static final String GET_STATEID_BY_NAME = "{ CALL GetStateIDByName (?) }";
+    private static final String GET_ALL_DOCTORS = "{ CALL GetAllDoctors }";
     
     private static final String ASSIGN_DOCTOR_TO_PATIENT = "{ CALL AsignDoctorToPatient (?),(?) }";
     private static final String PAY_LAB_TEST = "{ CALL PayLabTest (?) }";
@@ -952,114 +953,120 @@ public class SqlRepo implements IRepo{
     public List<Diagnose> getDiagnosesForPatient(int PatientID) {
         List<Diagnose> diagnoses = new ArrayList<>();
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
-        try (Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(GET_ALL_DIAGNOSE);
-                ResultSet resultSet = stmt.executeQuery()){
-                    while (resultSet.next()) {
-                        diagnoses.add(
-                                new Diagnose(
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_DIAGNOSE)) {
+            stmt.setInt(1, PatientID);
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    diagnoses.add(
+                            new Diagnose(
                                 resultSet.getInt("IDDiagnose"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getString("Note")));
-                    }
-            return diagnoses;
-            
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }        
         return diagnoses;
     }
+    
 
     @Override
     public List<LabTestRecommended> getLabTestRecommendedsForPatient(int PatientID) {
         List<LabTestRecommended> labTestRecommendeds = new ArrayList<>();
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
-        try (Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(GET_ALL_LAB_TESTS);
-                ResultSet resultSet = stmt.executeQuery()){
-                    while (resultSet.next()) {
-                        labTestRecommendeds.add(
-                                new LabTestRecommended(
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_LAB_TESTS)) {
+            stmt.setInt(1, PatientID);
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    labTestRecommendeds.add(
+                            new LabTestRecommended(
                                 resultSet.getInt("IDLabtestRecommended"),
                                 resultSet.getInt("LabTestID"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getBoolean("Paid")));
-                    }
-            return labTestRecommendeds;
-            
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }        
         return labTestRecommendeds;
     }
 
+    
     @Override
     public List<MedicationsPrescribed> getMedicationsPrescribedsForPatient(int PatientID) {
         List<MedicationsPrescribed> medicationsPrescribeds = new ArrayList<>();
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
-        try (Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(GET_ALL_MEDICATIONS_PRESCRIBED);
-                ResultSet resultSet = stmt.executeQuery()){
-                    while (resultSet.next()) {
-                        medicationsPrescribeds.add(
-                                new MedicationsPrescribed(
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_MEDICATIONS_PRESCRIBED)) {
+            stmt.setInt(1, PatientID);
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    medicationsPrescribeds.add(
+                            new MedicationsPrescribed(
                                 resultSet.getInt("IDMedicationsPrescribed"),
                                 resultSet.getInt("MedicationID"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getBoolean("Paid")));
-                    }
-            return medicationsPrescribeds;
-            
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }        
         return medicationsPrescribeds;
     }
+    
+    
 
     @Override
     public List<ConsultingRecommended> getConsultingRecommendedsForPatient(int PatientID) {
         List<ConsultingRecommended> consultingRecommendeds = new ArrayList<>();
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
-        try (Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(GET_ALL_CONSULTING_RECOMMENDED);
-                ResultSet resultSet = stmt.executeQuery()){
-                    while (resultSet.next()) {
-                        consultingRecommendeds.add(
-                                new ConsultingRecommended(
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_CONSULTING_RECOMMENDED)) {
+            stmt.setInt(1, PatientID);
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    consultingRecommendeds.add(
+                            new ConsultingRecommended(
                                 resultSet.getInt("IDConsultingRecommended"),
                                 resultSet.getInt("ConsultingID"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getBoolean("Paid")));
-                    }
-            return consultingRecommendeds;
-            
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }        
         return consultingRecommendeds;
     }
-
+    
     @Override
     public List<Appointment> getAppointmentsForPatient(int PatientID) {
         List<Appointment> appointments = new ArrayList<>();
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
-        try (Connection con = dataSource.getConnection();
-                CallableStatement stmt = con.prepareCall(GET_ALL_APPOINTMENTS);
-                ResultSet resultSet = stmt.executeQuery()){
-                    while (resultSet.next()) {
-                        appointments.add(
-                                new Appointment(
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_APPOINTMENTS)) {
+            stmt.setInt(1, PatientID);
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    appointments.add(
+                            new Appointment(
                                 resultSet.getInt("IDAppointment"),
                                 resultSet.getInt("PatientID"),
                                 resultSet.getDate("AppointmentDate")));
-                    }
-            return appointments;
-            
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }        
         return appointments;
     }
+    
+    
 
     @Override
     public List<Medication> getMedications() {
@@ -1393,6 +1400,27 @@ public class SqlRepo implements IRepo{
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public List<Doctor> getAllDoctors() {
+        List<Doctor> doctors = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_DOCTORS);
+                ResultSet resultSet = stmt.executeQuery()){
+                    while (resultSet.next()) {
+                        doctors.add(
+                                new Doctor(
+                                resultSet.getInt("IDDoctor"),
+                                resultSet.getInt("MedicalPersonnelID")));
+                    }
+            return doctors;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return doctors;
     }
 
     

@@ -12,6 +12,12 @@ public class Appointment {
     private int PatientID;
     private Date AppointmentDate;
 
+    public Appointment(int PatientID, Date AppointmentDate) {
+        this.PatientID = PatientID;
+        this.AppointmentDate = AppointmentDate;
+    }
+    
+
     public Appointment(int IDAppointment, int PatientID, Date AppointmentDate) {
         this.IDAppointment = IDAppointment;
         this.PatientID = PatientID;
@@ -30,4 +36,10 @@ public class Appointment {
     public void setIDAppointment(int id){
         IDAppointment=id;
     }
+
+    @Override
+    public String toString() {
+        return "Appointment{" + "AppointmentDate=" + AppointmentDate + '}';
+    }
+    
 }

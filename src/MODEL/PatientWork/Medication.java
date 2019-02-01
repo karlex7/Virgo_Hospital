@@ -27,4 +27,10 @@ public class Medication {
     public void setIDMedication(int id){
         IDMedication=id;
     }
+
+    @Override
+    public String toString() {
+        return "Medication{" + "MedicationName=" + MedicationName + ", Cost=" + Cost + '}';
+    }
+    
 }

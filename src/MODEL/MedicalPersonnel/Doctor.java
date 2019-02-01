@@ -29,4 +29,10 @@ public class Doctor extends MedicalPersonnel{
     public void setIDDoctor(int id){
         IDDoctor=id;
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" + "IDDoctor=" + IDDoctor + ", MedicalPersonnelID=" + MedicalPersonnelID + '}';
+    }
+    
 }

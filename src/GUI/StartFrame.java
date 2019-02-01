@@ -1,10 +1,22 @@
 package GUI;
 
+import BL.MedicalPersonnelHandler;
+import BL.PatientsHandler;
+import MODEL.MedicalPersonnel.Doctor;
+import MODEL.Patient.Patient;
+import java.util.List;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Karlo
  */
 public class StartFrame extends javax.swing.JFrame {
+    MedicalPersonnelHandler medicalPersonnelHandler=new MedicalPersonnelHandler();
+    PatientsHandler patientsHandler=new PatientsHandler();
+    List<Doctor> doctorsList=medicalPersonnelHandler.getAllDoctors();
+    private int DoctorID;
+    private int PatientID;
 
     /**
      * Creates new form StartFrame
@@ -28,6 +40,28 @@ public class StartFrame extends javax.swing.JFrame {
         btnMiniRegForm = new javax.swing.JButton();
         btnComprehensiveRegForm = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnLoadDoctor = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtIdDoctor = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listPatient = new javax.swing.JList<>();
+        txtWelcome = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnGetRegistrationForm = new javax.swing.JButton();
+        txtPatientName = new javax.swing.JLabel();
+        txtBirthDate = new javax.swing.JLabel();
+        btnAddDiagnose = new javax.swing.JButton();
+        btnPrescribeMedication = new javax.swing.JButton();
+        btnAddLabTest = new javax.swing.JButton();
+        btnRecommendConsulting = new javax.swing.JButton();
+        btnViewDiagnoseHistory = new javax.swing.JButton();
+        btnMedicationHistory = new javax.swing.JButton();
+        btnViewLabTestHistory = new javax.swing.JButton();
+        btnViewConsultingHistory = new javax.swing.JButton();
+        btnAppointment = new javax.swing.JButton();
+        btnAppointmentHistory = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,21 +91,21 @@ public class StartFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(btnMiniRegForm, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(99, 99, 99)
-                        .addComponent(btnComprehensiveRegForm)))
+                        .addComponent(btnComprehensiveRegForm))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119)
+                .addComponent(jLabel1)
+                .addGap(142, 142, 142)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMiniRegForm, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnComprehensiveRegForm, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -80,15 +114,200 @@ public class StartFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Reception", jPanel1);
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("Insert your ID:");
+
+        btnLoadDoctor.setText("Load Data");
+        btnLoadDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadDoctorActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel3.setText("Doctor");
+
+        listPatient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listPatientMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listPatient);
+
+        txtWelcome.setText("Welcome ");
+
+        jLabel5.setText("Patient Name:");
+
+        jLabel6.setText("Birth Date:");
+
+        btnGetRegistrationForm.setText("Get Registration Form");
+
+        btnAddDiagnose.setText("Add Diagnose");
+        btnAddDiagnose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddDiagnoseActionPerformed(evt);
+            }
+        });
+
+        btnPrescribeMedication.setText("Prescribe Medication");
+        btnPrescribeMedication.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrescribeMedicationActionPerformed(evt);
+            }
+        });
+
+        btnAddLabTest.setText("Add Lab Test");
+        btnAddLabTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddLabTestActionPerformed(evt);
+            }
+        });
+
+        btnRecommendConsulting.setText("Recommend Consulting");
+        btnRecommendConsulting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecommendConsultingActionPerformed(evt);
+            }
+        });
+
+        btnViewDiagnoseHistory.setText("View Diagnose History");
+        btnViewDiagnoseHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDiagnoseHistoryActionPerformed(evt);
+            }
+        });
+
+        btnMedicationHistory.setText("View Medication History");
+        btnMedicationHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedicationHistoryActionPerformed(evt);
+            }
+        });
+
+        btnViewLabTestHistory.setText("View Lab Test History");
+        btnViewLabTestHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewLabTestHistoryActionPerformed(evt);
+            }
+        });
+
+        btnViewConsultingHistory.setText("View Consulting History");
+        btnViewConsultingHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewConsultingHistoryActionPerformed(evt);
+            }
+        });
+
+        btnAppointment.setText("Schedule Appointment");
+        btnAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppointmentActionPerformed(evt);
+            }
+        });
+
+        btnAppointmentHistory.setText("Appointment History");
+        btnAppointmentHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppointmentHistoryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLoadDoctor)
+                            .addComponent(txtIdDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtWelcome)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPatientName)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtBirthDate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
+                                .addComponent(btnGetRegistrationForm))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAppointment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddDiagnose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPrescribeMedication, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddLabTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRecommendConsulting, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnViewConsultingHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnViewLabTestHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMedicationHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(btnViewDiagnoseHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAppointmentHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(43, 43, 43))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtWelcome))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtIdDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtPatientName))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLoadDoctor)
+                    .addComponent(jLabel6)
+                    .addComponent(btnGetRegistrationForm)
+                    .addComponent(txtBirthDate))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAddDiagnose)
+                            .addComponent(btnViewDiagnoseHistory))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPrescribeMedication)
+                            .addComponent(btnMedicationHistory))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAddLabTest)
+                            .addComponent(btnViewLabTestHistory))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnRecommendConsulting)
+                            .addComponent(btnViewConsultingHistory))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAppointment)
+                            .addComponent(btnAppointmentHistory))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Doctor", jPanel2);
@@ -122,6 +341,82 @@ public class StartFrame extends javax.swing.JFrame {
         ComprehensiveRegistrationFrame comp=new ComprehensiveRegistrationFrame();
         comp.setVisible(true);
     }//GEN-LAST:event_btnComprehensiveRegFormActionPerformed
+
+    private void btnLoadDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadDoctorActionPerformed
+        // TODO add your handling code here:
+        DoctorID=Integer.parseInt(txtIdDoctor.getText());
+        loadPatients();
+        txtWelcome.setText("Welcome dr. "+patientsHandler.getPerson(medicalPersonnelHandler.getMedicalPersonnel(medicalPersonnelHandler.getDoctor(DoctorID).getIDDoctor()).getPersonID()).getFirstName());
+    }//GEN-LAST:event_btnLoadDoctorActionPerformed
+
+    private void listPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPatientMouseClicked
+        // TODO add your handling code here:
+        
+        int selectedIndex=listPatient.getSelectedIndex();
+        List<Patient> patientList=patientsHandler.getPatientsByDoctor(DoctorID);
+        txtPatientName.setText(patientList.get(selectedIndex).getFirstName());
+        txtBirthDate.setText(patientList.get(selectedIndex).getBirthDate().toString());
+    }//GEN-LAST:event_listPatientMouseClicked
+
+    private void btnAddDiagnoseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDiagnoseActionPerformed
+        // TODO add your handling code here:
+        AddDiagnose addDiagnose=new AddDiagnose(getSelectedPatientID());
+        addDiagnose.setVisible(true);
+    }//GEN-LAST:event_btnAddDiagnoseActionPerformed
+
+    private void btnPrescribeMedicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescribeMedicationActionPerformed
+        // TODO add your handling code here:
+        PrescribeMedication prescribeMedication=new PrescribeMedication(getSelectedPatientID());
+        prescribeMedication.setVisible(true);
+    }//GEN-LAST:event_btnPrescribeMedicationActionPerformed
+
+    private void btnAddLabTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLabTestActionPerformed
+        // TODO add your handling code here:
+        AddLabTest addLabTest=new AddLabTest(getSelectedPatientID());
+        addLabTest.setVisible(true);
+    }//GEN-LAST:event_btnAddLabTestActionPerformed
+
+    private void btnRecommendConsultingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecommendConsultingActionPerformed
+        // TODO add your handling code here:
+        RecommendConsulting recommendConsulting=new RecommendConsulting(getSelectedPatientID());
+        recommendConsulting.setVisible(true);
+    }//GEN-LAST:event_btnRecommendConsultingActionPerformed
+
+    private void btnViewDiagnoseHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDiagnoseHistoryActionPerformed
+        // TODO add your handling code here:
+        DiagnoseHistory diagnoseHistory=new DiagnoseHistory(getSelectedPatientID());
+        diagnoseHistory.setVisible(true);
+    }//GEN-LAST:event_btnViewDiagnoseHistoryActionPerformed
+
+    private void btnMedicationHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedicationHistoryActionPerformed
+        // TODO add your handling code here:
+        MedicationHistory medicationHistory=new MedicationHistory(getSelectedPatientID());
+        medicationHistory.setVisible(true);
+    }//GEN-LAST:event_btnMedicationHistoryActionPerformed
+
+    private void btnViewLabTestHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewLabTestHistoryActionPerformed
+        // TODO add your handling code here:
+        LabTestHistory labTestHistory=new LabTestHistory(getSelectedPatientID());
+        labTestHistory.setVisible(true);
+    }//GEN-LAST:event_btnViewLabTestHistoryActionPerformed
+
+    private void btnViewConsultingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewConsultingHistoryActionPerformed
+        // TODO add your handling code here:
+        ConsultingHistory consultingHistory=new ConsultingHistory(getSelectedPatientID());
+        consultingHistory.setVisible(true);
+    }//GEN-LAST:event_btnViewConsultingHistoryActionPerformed
+
+    private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
+        // TODO add your handling code here:
+        ScheduleAppointment scheduleAppointment=new ScheduleAppointment(getSelectedPatientID());
+        scheduleAppointment.setVisible(true);
+    }//GEN-LAST:event_btnAppointmentActionPerformed
+
+    private void btnAppointmentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentHistoryActionPerformed
+        // TODO add your handling code here:
+        AppointmentHistory appointmentHistory=new AppointmentHistory(getSelectedPatientID());
+        appointmentHistory.setVisible(true);
+    }//GEN-LAST:event_btnAppointmentHistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,12 +454,51 @@ public class StartFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddDiagnose;
+    private javax.swing.JButton btnAddLabTest;
+    private javax.swing.JButton btnAppointment;
+    private javax.swing.JButton btnAppointmentHistory;
     private javax.swing.JButton btnComprehensiveRegForm;
+    private javax.swing.JButton btnGetRegistrationForm;
+    private javax.swing.JButton btnLoadDoctor;
+    private javax.swing.JButton btnMedicationHistory;
     private javax.swing.JButton btnMiniRegForm;
+    private javax.swing.JButton btnPrescribeMedication;
+    private javax.swing.JButton btnRecommendConsulting;
+    private javax.swing.JButton btnViewConsultingHistory;
+    private javax.swing.JButton btnViewDiagnoseHistory;
+    private javax.swing.JButton btnViewLabTestHistory;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JList<String> listPatient;
+    private javax.swing.JLabel txtBirthDate;
+    private javax.swing.JTextField txtIdDoctor;
+    private javax.swing.JLabel txtPatientName;
+    private javax.swing.JLabel txtWelcome;
     // End of variables declaration//GEN-END:variables
+
+    private void loadPatients() {
+        List<Patient> list=patientsHandler.getPatientsByDoctor(DoctorID);
+        DefaultListModel mod=new DefaultListModel();
+        
+        listPatient.setModel(mod);
+        
+        for (int i = 0; i < list.size(); i++) {
+            mod.addElement(list.get(i).getFirstName()+" "+list.get(i).getSurname());
+        }
+    }
+    private int getSelectedPatientID(){
+        int selectedIndex=listPatient.getSelectedIndex();
+        List<Patient> patientList=patientsHandler.getPatientsByDoctor(DoctorID);
+        return patientList.get(selectedIndex).getIDPatient();
+    }
+  
 }

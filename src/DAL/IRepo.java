@@ -75,6 +75,7 @@ public interface IRepo {
     List<States> getAllStateses();
     List<City> getAllCity();
     List<Street> getAllStreets();
+    List<Doctor> getAllDoctors();
     
     int getCityIdByName(String CityName);
     int getStreetIdByName(String StreetName);

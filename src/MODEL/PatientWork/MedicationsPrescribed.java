@@ -10,6 +10,12 @@ public class MedicationsPrescribed {
     private int PatientID;
     private boolean Paid;
 
+    public MedicationsPrescribed(int MedicationID, int PatientID) {
+        this.MedicationID = MedicationID;
+        this.PatientID = PatientID;
+    }
+    
+
     public MedicationsPrescribed(int IDMedicationsPrescribed, int MedicationID, int PatientID, boolean Paid) {
         this.IDMedicationsPrescribed = IDMedicationsPrescribed;
         this.MedicationID = MedicationID;

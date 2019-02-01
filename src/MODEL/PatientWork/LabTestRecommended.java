@@ -10,6 +10,12 @@ public class LabTestRecommended {
     private int PatientID;
     private boolean Paid;
 
+    public LabTestRecommended(int LabTestID, int PatientID) {
+        this.LabTestID = LabTestID;
+        this.PatientID = PatientID;
+    }
+    
+
     public LabTestRecommended(int IDLabtestRecommended, int LabTestID, int PatientID, boolean Paid) {
         this.IDLabtestRecommended = IDLabtestRecommended;
         this.LabTestID = LabTestID;
