@@ -30,7 +30,9 @@ public class Street{
 
     @Override
     public String toString() {
-        return "Street{" + "IDStreet=" + IDStreet + ", StreetName=" + StreetName + ", CityID=" + CityID + '}';
+        return StreetName;
     }
+
+    
     
 }

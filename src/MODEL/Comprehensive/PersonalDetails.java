@@ -34,7 +34,7 @@ public class PersonalDetails {
     public int getIDPersonalDetails(){
         return IDPersonalDetails;
     }
-    public boolean getMartialStatusID(){
+    public boolean getMartialStatus(){
         return MartialStatus;
     }
     public int getNoOfDependets(){
@@ -46,7 +46,7 @@ public class PersonalDetails {
     public int getWeightPerson(){
         return WeightPerson;
     }
-    public String getBloodTypeID(){
+    public String getBloodType(){
         return BloodTypeID;
     }
     public void setIDPersonalDetails(int id){

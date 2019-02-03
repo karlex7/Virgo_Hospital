@@ -94,6 +94,8 @@ public class SqlRepo implements IRepo{
     private static final String GET_STREETID_BY_NAME = "{ CALL GetStreetIDByName (?) }";
     private static final String GET_STATEID_BY_NAME = "{ CALL GetStateIDByName (?) }";
     private static final String GET_ALL_DOCTORS = "{ CALL GetAllDoctors }";
+    private static final String GET_COMPREHENSIVE_FOR_PATIENT = "{ CALL GetComprehensiveForPatient (?) }";
+    private static final String CHECK_IF_COMPREHENSIVE_EXIST = "{ CALL ExistComprehensive (?) }";
     
     private static final String ASSIGN_DOCTOR_TO_PATIENT = "{ CALL AsignDoctorToPatient (?),(?) }";
     private static final String PAY_LAB_TEST = "{ CALL PayLabTest (?) }";
@@ -261,11 +263,11 @@ public class SqlRepo implements IRepo{
         DataSource dataSource = (DataSource) SQLConnection.getInstance();
         try(Connection con=dataSource.getConnection();
                 CallableStatement stmt=con.prepareCall(INSERT_PERSONAL_DETAILS)) {
-            stmt.setBoolean(1,personalDetails.getMartialStatusID());
+            stmt.setBoolean(1,personalDetails.getMartialStatus());
             stmt.setInt(2,personalDetails.getNoOfDependets());
             stmt.setInt(3,personalDetails.getHeightPerson());
             stmt.setInt(4,personalDetails.getWeightPerson());
-            stmt.setString(5,personalDetails.getBloodTypeID());
+            stmt.setString(5,personalDetails.getBloodType());
             stmt.registerOutParameter(6, Types.INTEGER);
             
             stmt.executeUpdate();
@@ -505,7 +507,6 @@ public class SqlRepo implements IRepo{
                                 resultSet.getString("Sex"),
                                 resultSet.getDate("BirthDate"),
                                 resultSet.getInt("DoctorID"),
-                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname"));
@@ -529,7 +530,6 @@ public class SqlRepo implements IRepo{
                                 resultSet.getInt("IDNextOfKin"),
                                 resultSet.getInt("PersonID"),
                                 resultSet.getString("Relationship"),
-                                resultSet.getInt("IDPerson"),
                                 resultSet.getString("FirstName"), 
                                 resultSet.getString("MidleName"),
                                 resultSet.getString("Surname"));
@@ -1421,6 +1421,51 @@ public class SqlRepo implements IRepo{
             e.printStackTrace();
         }
         return doctors;
+    }
+
+    @Override
+    public ComprehensiveRegistrationForm getComprehensiveForPatient(int IDPatient) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_COMPREHENSIVE_FOR_PATIENT)){
+                stmt.setInt(1, IDPatient);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new ComprehensiveRegistrationForm(
+                                resultSet.getInt("IDComprenhensiveRegistrationForm"),
+                                resultSet.getInt("PatientID"),
+                                resultSet.getDate("RegDate"),
+                                resultSet.getInt("ContactDetailsID"),
+                                resultSet.getInt("ContactNextOfKinID"),
+                                resultSet.getInt("PersonalDetailsID"),
+                                resultSet.getInt("ProfessionDetailsID"),
+                                resultSet.getInt("LifeStyleID"),
+                                resultSet.getInt("BasicComplaintsID"),
+                                resultSet.getInt("ImportantMedicalComplaintsID"));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public int checkIfComprehensiveExist(int IDPatient) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(CHECK_IF_COMPREHENSIVE_EXIST)){
+                stmt.setInt(1, IDPatient);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Integer(
+                                resultSet.getInt(1));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     

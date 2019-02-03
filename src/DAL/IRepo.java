@@ -61,6 +61,8 @@ public interface IRepo {
     Consulting getConsulting(int IDConsulting);
     Appointment getAppointment(int IDAppointment);
     Diagnose getDiagnose(int IDDiagnose);
+    ComprehensiveRegistrationForm getComprehensiveForPatient(int IDPatient);
+    int checkIfComprehensiveExist(int IDPatient);
     
     
     List<Patient> getPatientsByDoctor(int DoctorID);

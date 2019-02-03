@@ -35,7 +35,9 @@ public class City{
 
     @Override
     public String toString() {
-        return "City{" + "IDCity=" + IDCity + ", CityName=" + CityName + ", StateID=" + StateID + ", ZipCode=" + ZipCode + '}';
+        return CityName;
     }
+
+    
     
 }

@@ -44,6 +44,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         fillComboBoxStates(cbNextOfKinState, cbNextOfKinCity, cbNextOfKinStreet);
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

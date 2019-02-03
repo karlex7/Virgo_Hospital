@@ -22,5 +22,10 @@ public class States {
     public void setIDState(int id){
         IDState=id;
     }
+
+    @Override
+    public String toString() {
+        return StateName;
+    }
     
 }

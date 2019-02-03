@@ -14,6 +14,13 @@ public class ComprehensiveRegFormHandler extends HandlerBase{
     public ComprehensiveRegistrationForm getComprehensiveRegistrationForm(int IDComprehensiveRegForm){
         return repo.getComprehensiveRegistrationForm(IDComprehensiveRegForm);
     }
+    public ComprehensiveRegistrationForm getComprehensiveRegistrationFormForPatient(int IDPatient){
+        return repo.getComprehensiveForPatient(IDPatient);
+    }
+    public int checkIfExistComprehensive(int IDPatient){
+        return repo.checkIfComprehensiveExist(IDPatient);
+    }
+    
     //-------------------------------------------------------------
     public int insertContactDetails(ContactDetails contactDetails){
         return repo.insertContactDetails(contactDetails);
