@@ -22,11 +22,13 @@ public class RecommendConsulting extends javax.swing.JFrame {
     public RecommendConsulting() {
         initComponents();
         loadConsulting();
+        txtAlert.setVisible(false);
     }
     public RecommendConsulting(int idpatient) {
         initComponents();
         IDPatient=idpatient;
         loadConsulting();
+        txtAlert.setVisible(false);
     }
 
     /**
@@ -42,8 +44,7 @@ public class RecommendConsulting extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listConsulting = new javax.swing.JList<>();
         btnRecommend = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtAlert = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Recommend Consulting");
@@ -62,6 +63,9 @@ public class RecommendConsulting extends javax.swing.JFrame {
             }
         });
 
+        txtAlert.setForeground(new java.awt.Color(255, 51, 0));
+        txtAlert.setText("Odaberite consulting!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,7 +78,10 @@ public class RecommendConsulting extends javax.swing.JFrame {
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRecommend))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtAlert)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnRecommend)))
                 .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
@@ -85,7 +92,9 @@ public class RecommendConsulting extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnRecommend)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRecommend)
+                    .addComponent(txtAlert))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -94,8 +103,14 @@ public class RecommendConsulting extends javax.swing.JFrame {
 
     private void btnRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecommendActionPerformed
         // TODO add your handling code here:
-        recommendCon();
-        this.setVisible(false);
+        if (listConsulting.getSelectedIndex()==-1) {
+            txtAlert.setVisible(true);
+        }
+        else{
+            recommendCon();
+            txtAlert.setVisible(false);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_btnRecommendActionPerformed
 
     /**
@@ -138,6 +153,7 @@ public class RecommendConsulting extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listConsulting;
+    private javax.swing.JLabel txtAlert;
     // End of variables declaration//GEN-END:variables
 
     private void loadConsulting() {

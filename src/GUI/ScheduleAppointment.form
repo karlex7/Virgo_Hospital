@@ -5,9 +5,6 @@
     <Component class="com.toedter.calendar.JCalendar" name="jCalendar1">
     </Component>
   </NonVisualComponents>
-  <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
-  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
@@ -37,6 +34,8 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="txtAlert" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="btnSchedule" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -50,7 +49,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="calendar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnSchedule" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnSchedule" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAlert" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="8" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -74,6 +76,14 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnScheduleActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtAlert">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Odaberite datum!"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

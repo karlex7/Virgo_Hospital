@@ -63,6 +63,8 @@ public interface IRepo {
     Diagnose getDiagnose(int IDDiagnose);
     ComprehensiveRegistrationForm getComprehensiveForPatient(int IDPatient);
     int checkIfComprehensiveExist(int IDPatient);
+    int checkIfMiniExist(int IDPatient);
+    List<Patient> getPatientsWithNoDoctor();
     
     
     List<Patient> getPatientsByDoctor(int DoctorID);
@@ -78,6 +80,11 @@ public interface IRepo {
     List<City> getAllCity();
     List<Street> getAllStreets();
     List<Doctor> getAllDoctors();
+    List<MiniRegForm> getAllMiniRegForms();
+    
+    List<LabTestRecommended> getLabTestRecommendedsUnpaid();
+    List<MedicationsPrescribed> getMedicationsPrescribedsUnpaid();
+    List<ConsultingRecommended> getConsultingRecommendedsUnpaid();
     
     int getCityIdByName(String CityName);
     int getStreetIdByName(String StreetName);

@@ -18,10 +18,12 @@ public class ScheduleAppointment extends javax.swing.JFrame {
      */
     public ScheduleAppointment() {
         initComponents();
+        txtAlert.setVisible(false);
     }
     public ScheduleAppointment(int idpatient) {
         initComponents();
         IDPatient=idpatient;
+        txtAlert.setVisible(false);
         
         Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
         calendar.setSelectableDateRange(new Date(timeNow.getDate()), new Date(2020, 12, 30));
@@ -40,8 +42,7 @@ public class ScheduleAppointment extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         calendar = new com.toedter.calendar.JCalendar();
         btnSchedule = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtAlert = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Schedule Appointment");
@@ -52,6 +53,9 @@ public class ScheduleAppointment extends javax.swing.JFrame {
                 btnScheduleActionPerformed(evt);
             }
         });
+
+        txtAlert.setForeground(new java.awt.Color(255, 0, 0));
+        txtAlert.setText("Odaberite datum!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,6 +69,8 @@ public class ScheduleAppointment extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtAlert)
+                .addGap(40, 40, 40)
                 .addComponent(btnSchedule)
                 .addContainerGap())
         );
@@ -76,7 +82,9 @@ public class ScheduleAppointment extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSchedule)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSchedule)
+                    .addComponent(txtAlert))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -85,8 +93,14 @@ public class ScheduleAppointment extends javax.swing.JFrame {
 
     private void btnScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleActionPerformed
         // TODO add your handling code here:
-        schedule();
-        this.setVisible(false);
+        if (calendar.getDate()==null) {
+            txtAlert.setVisible(true);
+        }
+        else{
+            schedule();
+            txtAlert.setVisible(false);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_btnScheduleActionPerformed
 
     /**
@@ -129,6 +143,7 @@ public class ScheduleAppointment extends javax.swing.JFrame {
     private com.toedter.calendar.JCalendar calendar;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel txtAlert;
     // End of variables declaration//GEN-END:variables
 
     private void schedule() {

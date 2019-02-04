@@ -9,6 +9,8 @@ import MODEL.Patient.Patient;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.Enumeration;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javax.swing.AbstractButton;
 import javax.swing.JRadioButton;
 
@@ -26,6 +28,7 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
      */
     public MiniRegistrationFrame() {
         initComponents();
+        txtAlert.setVisible(false);
     }
 
     /**
@@ -65,8 +68,7 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         dateBrithDate = new com.toedter.calendar.JDateChooser();
         cbRelationship = new javax.swing.JComboBox<>();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtAlert = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Mini Registration Form");
@@ -114,6 +116,10 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
         jLabel13.setText("Birth Date:");
 
         cbRelationship.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mother", "Father", "Brother/Sister", "GrandMother/GrandFather", "other", " " }));
+
+        txtAlert.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlert.setForeground(new java.awt.Color(204, 0, 102));
+        txtAlert.setText("Sve mora biti ispunjeno");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,7 +176,9 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(126, 126, 126)
                                 .addComponent(dateBrithDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addGap(88, 88, 88)
+                .addComponent(txtAlert)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,13 +226,18 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNextOfKinSurname, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNextOfKinSurname, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtAlert)
+                        .addGap(2, 2, 2)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(cbRelationship, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(btnSave)
                 .addGap(16, 16, 16))
         );
@@ -234,23 +247,16 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        String FirstName=txtFirstName.getText();
-        String MiddleName=txtMiddleName.getText();
-        String Surname=txtSurname.getText();
-        String Sex=getSex();
-        String BriefStatement=txtBriefStatement.getText();
-        String ContactTelephone=txtContactTelephone.getText();
-        String NextOfKinFirstName=txtNextOfKinFirstName.getText();
-        String NextOfKinMiddleName=txtNextOfKinMiddleName.getText();
-        String NextOfKinSurname=txtNextOfKinSurname.getText();
-        Date birthDate = new Date(dateBrithDate.getDate().getYear(),dateBrithDate.getDate().getMonth(),dateBrithDate.getDate().getDay());
-        String Relationship=cbRelationship.getSelectedItem().toString();
-        Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
+        if (checkIfEmpty()) {
+            System.out.println("alert");
+            txtAlert.setVisible(true);
+            
+        }
+        else{
+            System.out.println("Save");
+            saveMini();
+        }
         
-        int idPatient=patientsHandler.insertPatient(new Patient(Sex, birthDate, FirstName, MiddleName, Surname));
-        int idNextOfKin=nextOfKinHandler.insertNextOfKin(new NextOfKin(Relationship, NextOfKinFirstName, NextOfKinMiddleName, NextOfKinSurname));
-        miniRegFormHandler.insertMiniRegForm(new MiniRegForm(new Date(timeNow.getDate()), idPatient, BriefStatement, ContactTelephone, idNextOfKin));
-        this.setVisible(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
@@ -309,6 +315,7 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton radioF;
     private javax.swing.JRadioButton radioM;
+    private javax.swing.JLabel txtAlert;
     private javax.swing.JTextArea txtBriefStatement;
     private javax.swing.JTextField txtContactTelephone;
     private javax.swing.JTextField txtFirstName;
@@ -328,5 +335,37 @@ public class MiniRegistrationFrame extends javax.swing.JFrame {
             }
         }
         return "-1";
+    }
+
+    private void saveMini() {
+        String FirstName=txtFirstName.getText();
+        String MiddleName=txtMiddleName.getText();
+        String Surname=txtSurname.getText();
+        String Sex=getSex();
+        String BriefStatement=txtBriefStatement.getText();
+        String ContactTelephone=txtContactTelephone.getText();
+        String NextOfKinFirstName=txtNextOfKinFirstName.getText();
+        String NextOfKinMiddleName=txtNextOfKinMiddleName.getText();
+        String NextOfKinSurname=txtNextOfKinSurname.getText();
+        Date birthDate = new Date(dateBrithDate.getDate().getYear(),dateBrithDate.getDate().getMonth(),dateBrithDate.getDate().getDay());
+        String Relationship=cbRelationship.getSelectedItem().toString();
+        Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        
+        int idPatient=patientsHandler.insertPatient(new Patient(Sex, birthDate, FirstName, MiddleName, Surname));
+        int idNextOfKin=nextOfKinHandler.insertNextOfKin(new NextOfKin(Relationship, NextOfKinFirstName, NextOfKinMiddleName, NextOfKinSurname));
+        miniRegFormHandler.insertMiniRegForm(new MiniRegForm(date, idPatient, BriefStatement, ContactTelephone, idNextOfKin));
+        this.setVisible(false);
+    }
+
+    private boolean checkIfEmpty() {
+        if (txtFirstName.getText().isEmpty()||txtSurname.getText().isEmpty()||getSex()!="-1"||txtBriefStatement.getText().isEmpty()) {
+            if (txtContactTelephone.getText().isEmpty()||txtContactTelephone.getText().isEmpty()||txtNextOfKinFirstName.getText().isEmpty()) {
+                if (txtNextOfKinSurname.getText().isEmpty()||dateBrithDate.getDate()==null||cbRelationship.getSelectedIndex()==-1) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }

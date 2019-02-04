@@ -41,7 +41,7 @@ public class SqlRepo implements IRepo{
     private static final String INSERT_LIFE_STYLE= "{ CALL InsertLifeStyle (?,?,?,?,?,?,?,?,?,?,?) }";
     private static final String INSERT_BASIC_COMPLAINTS= "{ CALL InsertBasicComplaints (?,?,?,?) }";
     private static final String INSERT_IMPORTANT_MEDICAL_COMPLAINTS= "{ CALL InsertImportantMedicalComplaints (?,?,?,?,?,?,?,?,?,?,?,?) }";
-    private static final String INSERT_COMPREHENSIVE_REG_FORM= "{ CALL InsertComprehensiveRegistrationForm (?,?,?,?,?,?,?,?,?) }";
+    private static final String INSERT_COMPREHENSIVE_REG_FORM= "{ CALL InsertComprehensiveRegistrationForm (?,?,?,?,?,?,?,?,?,?) }";
     private static final String INSERT_DIAGNOSE= "{ CALL InsertDiagnose (?,?,?) }";
     private static final String INSERT_LAB_TEST_RECOMMENDED= "{ CALL InsertLabTestRecommended (?,?,?) }";
     private static final String INSERT_MEDICATIONS_PRESCRIBED= "{ CALL InsertMedicationsPrescribed (?,?,?) }";
@@ -96,8 +96,14 @@ public class SqlRepo implements IRepo{
     private static final String GET_ALL_DOCTORS = "{ CALL GetAllDoctors }";
     private static final String GET_COMPREHENSIVE_FOR_PATIENT = "{ CALL GetComprehensiveForPatient (?) }";
     private static final String CHECK_IF_COMPREHENSIVE_EXIST = "{ CALL ExistComprehensive (?) }";
+    private static final String GET_PATIENT_WITH_NO_DOCTOR = "{ CALL GetPatientsWithNoDoctor }";
+    private static final String CHECK_IF_MINI_EXIST = "{ CALL ExistMiniReg (?) }";
+    private static final String GET_ALL_MINI_REG = "{ CALL GetAllMiniRegForms}";
+    private static final String GET_UNPAID_LAB_TESTS = "{ CALL GetAllLabTestRecommendedNotPaid}";
+    private static final String GET_UNPAID_MEDICATIONS = "{ CALL GetAllMedicationsPrescribedNotPaid}";
+    private static final String GET_UNPAID_CONSULTINGS = "{ CALL GetAllConsultingRecommendedNotPaid}";
     
-    private static final String ASSIGN_DOCTOR_TO_PATIENT = "{ CALL AsignDoctorToPatient (?),(?) }";
+    private static final String ASSIGN_DOCTOR_TO_PATIENT = "{ CALL AsignDoctorToPatient (?,?)}";
     private static final String PAY_LAB_TEST = "{ CALL PayLabTest (?) }";
     private static final String PAY_MEDICATION = "{ CALL PayMedication (?) }";
     private static final String PAY_CONSULTING = "{ CALL PayConsulting (?) }";
@@ -370,17 +376,18 @@ public class SqlRepo implements IRepo{
         try(Connection con=dataSource.getConnection();
                 CallableStatement stmt=con.prepareCall(INSERT_COMPREHENSIVE_REG_FORM)) {
             stmt.setInt(1,comprehensiveRegistrationForm.getPatientID());
-            stmt.setInt(2,comprehensiveRegistrationForm.getContactDetailsID());
-            stmt.setInt(3,comprehensiveRegistrationForm.getContactNextOfKinID());
-            stmt.setInt(4,comprehensiveRegistrationForm.getPersonalDetailsID());
-            stmt.setInt(5,comprehensiveRegistrationForm.getProfessionDetailsID());
-            stmt.setInt(6,comprehensiveRegistrationForm.getLifeStyleID());
-            stmt.setInt(7,comprehensiveRegistrationForm.getBasicComplaintsID());
-            stmt.setInt(8,comprehensiveRegistrationForm.getImportantMedicalComplaintsID());
-            stmt.registerOutParameter(9, Types.INTEGER);
+            stmt.setDate(2,comprehensiveRegistrationForm.getRegDate());
+            stmt.setInt(3,comprehensiveRegistrationForm.getContactDetailsID());
+            stmt.setInt(4,comprehensiveRegistrationForm.getContactNextOfKinID());
+            stmt.setInt(5,comprehensiveRegistrationForm.getPersonalDetailsID());
+            stmt.setInt(6,comprehensiveRegistrationForm.getProfessionDetailsID());
+            stmt.setInt(7,comprehensiveRegistrationForm.getLifeStyleID());
+            stmt.setInt(8,comprehensiveRegistrationForm.getBasicComplaintsID());
+            stmt.setInt(9,comprehensiveRegistrationForm.getImportantMedicalComplaintsID());
+            stmt.registerOutParameter(10, Types.INTEGER);
             
             stmt.executeUpdate();
-            return stmt.getInt(9);
+            return stmt.getInt(10);
         } catch (SQLException ex) {
             Logger.getLogger(SqlRepo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1466,6 +1473,139 @@ public class SqlRepo implements IRepo{
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public List<Patient> getPatientsWithNoDoctor() {
+         List<Patient> patients = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_PATIENT_WITH_NO_DOCTOR)) {
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    patients.add(
+                            new Patient(
+                                resultSet.getInt("IDPatient"),
+                                resultSet.getInt("PersonID"),
+                                resultSet.getString("Sex"),
+                                resultSet.getDate("BirthDate"),
+                                resultSet.getInt("DoctorID"),
+                                resultSet.getString("FirstName"), 
+                                resultSet.getString("MidleName"),
+                                resultSet.getString("Surname")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return patients;
+    }
+
+    @Override
+    public int checkIfMiniExist(int IDPatient) {
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try (Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(CHECK_IF_MINI_EXIST)){
+                stmt.setInt(1, IDPatient);
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Integer(
+                                resultSet.getInt(1));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public List<MiniRegForm> getAllMiniRegForms() {
+        List<MiniRegForm> miniRegForms = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_ALL_MINI_REG)) {
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    miniRegForms.add(new MiniRegForm(
+                                resultSet.getInt("IDMiniRegForm"),
+                                resultSet.getDate("RegDate"),
+                                resultSet.getInt("PatientID"), 
+                                resultSet.getString("BriefStatementOfComplaint"),
+                                resultSet.getString("ContactTelephone"),
+                                resultSet.getInt("NextOfKinID")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return miniRegForms;
+    }
+
+    @Override
+    public List<LabTestRecommended> getLabTestRecommendedsUnpaid() {
+        List<LabTestRecommended> labTestRecommendeds = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_UNPAID_LAB_TESTS)) {
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    labTestRecommendeds.add(
+                            new LabTestRecommended(
+                                resultSet.getInt("IDLabtestRecommended"),
+                                resultSet.getInt("LabTestID"),
+                                resultSet.getInt("PatientID"),
+                                resultSet.getBoolean("Paid")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return labTestRecommendeds;
+    }
+
+    @Override
+    public List<MedicationsPrescribed> getMedicationsPrescribedsUnpaid() {
+        List<MedicationsPrescribed> medicationsPrescribeds = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_UNPAID_MEDICATIONS)) {
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    medicationsPrescribeds.add(
+                            new MedicationsPrescribed(
+                                resultSet.getInt("IDMedicationsPrescribed"),
+                                resultSet.getInt("MedicationID"),
+                                resultSet.getInt("PatientID"),
+                                resultSet.getBoolean("Paid")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return medicationsPrescribeds;
+    }
+
+    @Override
+    public List<ConsultingRecommended> getConsultingRecommendedsUnpaid() {
+        List<ConsultingRecommended> consultingRecommendeds = new ArrayList<>();
+        DataSource dataSource = (DataSource) SQLConnection.getInstance();
+        try(Connection con = dataSource.getConnection();
+                CallableStatement stmt = con.prepareCall(GET_UNPAID_CONSULTINGS)) {
+           try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    consultingRecommendeds.add(
+                            new ConsultingRecommended(
+                                resultSet.getInt("IDConsultingRecommended"),
+                                resultSet.getInt("ConsultingID"),
+                                resultSet.getInt("PatientID"),
+                                resultSet.getBoolean("Paid")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return consultingRecommendeds;
     }
 
     

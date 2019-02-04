@@ -21,11 +21,13 @@ public class PrescribeMedication extends javax.swing.JFrame {
     public PrescribeMedication() {
         initComponents();
         LoadMedications();
+        txtAlert.setVisible(false);
     }
     public PrescribeMedication(int idpatient) {
         initComponents();
         IDPatient=idpatient;
         LoadMedications();
+        txtAlert.setVisible(false);
     }
 
     /**
@@ -41,8 +43,7 @@ public class PrescribeMedication extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listMedications = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtAlert = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Prescribe Medication");
@@ -56,13 +57,20 @@ public class PrescribeMedication extends javax.swing.JFrame {
             }
         });
 
+        txtAlert.setForeground(new java.awt.Color(255, 0, 0));
+        txtAlert.setText("Odaberite medication!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtAlert)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
@@ -80,7 +88,9 @@ public class PrescribeMedication extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(txtAlert))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -89,8 +99,14 @@ public class PrescribeMedication extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        prescribeMed();
-        this.setVisible(false);
+        if (listMedications.getSelectedIndex()==-1) {
+            txtAlert.setVisible(true);
+        }
+        else{
+            prescribeMed();
+            txtAlert.setVisible(false);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -133,6 +149,7 @@ public class PrescribeMedication extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listMedications;
+    private javax.swing.JLabel txtAlert;
     // End of variables declaration//GEN-END:variables
 
     private void LoadMedications() {

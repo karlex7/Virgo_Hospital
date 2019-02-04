@@ -65,8 +65,6 @@ public class ShowMiniRegistarForm extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         txtBirthDate = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Mini Registration Form");
 

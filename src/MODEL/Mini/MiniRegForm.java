@@ -53,4 +53,10 @@ public class MiniRegForm {
     public void setIDMiniRegForm(int id){
         IDMiniRegForm=id;
     }
+
+    @Override
+    public String toString() {
+        return "MiniRegForm{" + "IDMiniRegForm=" + IDMiniRegForm + ", RegDate=" + RegDate + ", PatientID=" + PatientID + ", BriefStatementOfComplaint=" + BriefStatementOfComplaint + ", ContactTelephone=" + ContactTelephone + ", NextOfKinID=" + NextOfKinID + '}';
+    }
+    
 }

@@ -205,7 +205,6 @@ public class ShowComprehensiveRegForm extends javax.swing.JFrame {
 
         jCheckBox1.setText("jCheckBox1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N

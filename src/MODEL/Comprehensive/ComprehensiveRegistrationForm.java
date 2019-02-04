@@ -1,6 +1,7 @@
 package MODEL.Comprehensive;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 /**
  *

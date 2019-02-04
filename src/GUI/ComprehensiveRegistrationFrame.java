@@ -11,6 +11,7 @@ import MODEL.Comprehensive.ImportantMedicalComplaints;
 import MODEL.Comprehensive.LifeStyle;
 import MODEL.Comprehensive.PersonalDetails;
 import MODEL.Comprehensive.ProfessionDetails;
+import MODEL.Mini.MiniRegForm;
 import MODEL.Mini.NextOfKin;
 import MODEL.Patient.Patient;
 import MODEL.Patient.Person;
@@ -33,6 +34,8 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
     AdressHandler adressHandler1=new AdressHandler();
     ComprehensiveRegFormHandler comprehensiveRegFormHandler=new ComprehensiveRegFormHandler();
     NextOfKinHandler nextOfKinHandler=new NextOfKinHandler();
+    private int IDPatient;
+    MiniRegFormHandler miniRegFormHandler=new MiniRegFormHandler();
 
     /**
      * Creates new form ComprehensiveRegistrationFrame
@@ -42,8 +45,20 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         fillComboBoxStates(cbPresentState, cbPresentCity, cbPresentStreet);
         fillComboBoxStates(cbPermanentState, cbPermanentCity, cbPermanentStreet);
         fillComboBoxStates(cbNextOfKinState, cbNextOfKinCity, cbNextOfKinStreet);
+        
+        hideAlerts();
+    }
+    public ComprehensiveRegistrationFrame(int idpatient) {
+        initComponents();
+        fillComboBoxStates(cbPresentState, cbPresentCity, cbPresentStreet);
+        fillComboBoxStates(cbPermanentState, cbPermanentCity, cbPermanentStreet);
+        fillComboBoxStates(cbNextOfKinState, cbNextOfKinCity, cbNextOfKinStreet);
+        IDPatient=idpatient;
+        fillInfoFromMiniForm();
+        hideAlerts();
     }
 
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,6 +100,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         dateBirthDate = new com.toedter.calendar.JDateChooser();
+        txtAlertBasic = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -116,6 +132,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         txtPager = new javax.swing.JTextField();
         txtFax = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
+        txtAlertContactDetails = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -146,6 +163,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         txtNextOfKinPager = new javax.swing.JTextField();
         txtNextOfKinFax = new javax.swing.JTextField();
         txtNextOfKinEmail = new javax.swing.JTextField();
+        txtAlertContactNextOfKin = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -160,6 +178,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         chbMarried = new javax.swing.JRadioButton();
         chbNotMarried = new javax.swing.JRadioButton();
         btnNextPersonalDetails = new javax.swing.JButton();
+        txtAlertPersonalDetails = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
@@ -168,6 +187,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         txtOccupation = new javax.swing.JTextArea();
         txtGrossAnnualIncome = new javax.swing.JTextField();
         btnNextProffesionDetails = new javax.swing.JButton();
+        txtAlertProfessionDetails = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
@@ -197,6 +217,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         txtAverageCigarets = new javax.swing.JTextField();
         txtAverageDrinks = new javax.swing.JTextField();
         btnNextLifeStyle = new javax.swing.JButton();
+        txtAlertLifestyle = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel58 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
@@ -209,6 +230,7 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtPhysicianHospitalTreated = new javax.swing.JTextArea();
         btnNextBasicComplaints = new javax.swing.JButton();
+        txtAlertBasicComplaints = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel62 = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
@@ -242,8 +264,8 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         txtKnownAdverseReactionToDrugs = new javax.swing.JTextField();
         txtMajorSurgeries = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
+        txtAlertImportantMedical = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -271,6 +293,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
 
         btnGroupSex.add(jRadioButton2);
         jRadioButton2.setText("F");
+
+        txtAlertBasic.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertBasic.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertBasic.setText("Sve mora biti ispunjeno");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,6 +334,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNextBasicDetails)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAlertBasic)
+                .addGap(92, 92, 92))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +365,9 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(dateBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addComponent(txtAlertBasic)
+                .addGap(30, 30, 30)
                 .addComponent(btnNextBasicDetails)
                 .addContainerGap())
         );
@@ -408,6 +440,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
 
         jLabel32.setText("Email:");
 
+        txtAlertContactDetails.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertContactDetails.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertContactDetails.setText("Sve mora biti ispunjeno");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -461,6 +497,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNextContactDetails)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAlertContactDetails)
+                .addGap(41, 41, 41))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,7 +556,9 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(txtPermenantDoorNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(txtAlertContactDetails)
+                .addGap(18, 18, 18)
                 .addComponent(btnNextContactDetails)
                 .addContainerGap())
         );
@@ -576,6 +618,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Email:");
 
+        txtAlertContactNextOfKin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertContactNextOfKin.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertContactNextOfKin.setText("Sve mora biti ispunjeno");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -630,6 +676,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNextContactNextOfKin)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAlertContactNextOfKin)
+                .addGap(61, 61, 61))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,7 +731,9 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(txtNextOfKinDoorNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(txtAlertContactNextOfKin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNextContactNextOfKin)
                 .addContainerGap())
         );
@@ -715,6 +767,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 btnNextPersonalDetailsActionPerformed(evt);
             }
         });
+
+        txtAlertPersonalDetails.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertPersonalDetails.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertPersonalDetails.setText("Sve mora biti ispunjeno");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -763,6 +819,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNextPersonalDetails)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAlertPersonalDetails)
+                .addGap(43, 43, 43))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -790,7 +850,9 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel43)
                     .addComponent(cbBloodType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
+                .addComponent(txtAlertPersonalDetails)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnNextPersonalDetails)
                 .addContainerGap())
         );
@@ -814,6 +876,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 btnNextProffesionDetailsActionPerformed(evt);
             }
         });
+
+        txtAlertProfessionDetails.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertProfessionDetails.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertProfessionDetails.setText("Sve mora biti ispunjeno");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -842,6 +908,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNextProffesionDetails)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAlertProfessionDetails)
+                .addGap(57, 57, 57))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -856,7 +926,9 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel46)
                     .addComponent(txtGrossAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
+                .addComponent(txtAlertProfessionDetails)
+                .addGap(18, 18, 18)
                 .addComponent(btnNextProffesionDetails)
                 .addContainerGap())
         );
@@ -929,6 +1001,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
             }
         });
 
+        txtAlertLifestyle.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertLifestyle.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertLifestyle.setText("Sve mora biti ispunjeno");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -948,52 +1024,55 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel52)
                                     .addComponent(jLabel53)
                                     .addComponent(jLabel56)
-                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel48)
-                                                .addComponent(jLabel49))
-                                            .addGap(166, 166, 166)
-                                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                                    .addComponent(jRadioButton3)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jRadioButton4))
-                                                .addGroup(jPanel6Layout.createSequentialGroup()
-                                                    .addGap(21, 21, 21)
-                                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(txtConsumptionSoftDrinksPerDay)
-                                                        .addGroup(jPanel6Layout.createSequentialGroup()
-                                                            .addComponent(jRadioButton8)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(jRadioButton7))
-                                                        .addGroup(jPanel6Layout.createSequentialGroup()
-                                                            .addComponent(jRadioButton6)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(jRadioButton5))
-                                                        .addGroup(jPanel6Layout.createSequentialGroup()
-                                                            .addComponent(jRadioButton10)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(jRadioButton9))
-                                                        .addComponent(txtConsumptionOfCoffeTeaPerDay)))))
-                                        .addGroup(jPanel6Layout.createSequentialGroup()
-                                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel54)
-                                                .addComponent(jLabel55)
-                                                .addComponent(jLabel57))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(jPanel6Layout.createSequentialGroup()
-                                                    .addComponent(jRadioButton14)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jRadioButton13))
-                                                .addGroup(jPanel6Layout.createSequentialGroup()
-                                                    .addComponent(jRadioButton12)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jRadioButton11))
-                                                .addComponent(txtAverageCigarets)
-                                                .addComponent(txtAverageDrinks)))))))
-                        .addGap(0, 477, Short.MAX_VALUE))
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel48)
+                                                    .addComponent(jLabel49))
+                                                .addGap(166, 166, 166)
+                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                                        .addComponent(jRadioButton3)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jRadioButton4))
+                                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                                        .addGap(21, 21, 21)
+                                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(txtConsumptionSoftDrinksPerDay)
+                                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                                .addComponent(jRadioButton8)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jRadioButton7))
+                                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                                .addComponent(jRadioButton6)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jRadioButton5))
+                                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                                .addComponent(jRadioButton10)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jRadioButton9))
+                                                            .addComponent(txtConsumptionOfCoffeTeaPerDay)))))
+                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel54)
+                                                    .addComponent(jLabel55)
+                                                    .addComponent(jLabel57))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                                        .addComponent(jRadioButton14)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jRadioButton13))
+                                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                                        .addComponent(jRadioButton12)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jRadioButton11))
+                                                    .addComponent(txtAverageCigarets)
+                                                    .addComponent(txtAverageDrinks))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                                        .addComponent(txtAlertLifestyle)))))
+                        .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNextLifeStyle)))
@@ -1046,13 +1125,19 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel56)
                     .addComponent(txtAverageCigarets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel57)
-                    .addComponent(txtAverageDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(btnNextLifeStyle)
-                .addContainerGap())
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel57)
+                            .addComponent(txtAverageDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addComponent(btnNextLifeStyle)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtAlertLifestyle)
+                        .addGap(69, 69, 69))))
         );
 
         tabContactDetails.addTab("Life Style", jPanel6);
@@ -1085,6 +1170,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
             }
         });
 
+        txtAlertBasicComplaints.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertBasicComplaints.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertBasicComplaints.setText("Sve mora biti ispunjeno");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1112,6 +1201,10 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNextBasicComplaints)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAlertBasicComplaints)
+                .addGap(57, 57, 57))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1130,7 +1223,9 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel61))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addComponent(txtAlertBasicComplaints, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(btnNextBasicComplaints)
                 .addContainerGap())
         );
@@ -1217,70 +1312,75 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
             }
         });
 
+        txtAlertImportantMedical.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtAlertImportantMedical.setForeground(new java.awt.Color(255, 0, 102));
+        txtAlertImportantMedical.setText("Sve mora biti ispunjeno");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel62)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(131, 131, 131)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel63)
+                    .addComponent(jLabel64)
+                    .addComponent(jLabel65)
+                    .addComponent(jLabel66)
+                    .addComponent(jLabel67)
+                    .addComponent(jLabel68)
+                    .addComponent(jLabel69)
+                    .addComponent(jLabel70)
+                    .addComponent(jLabel71)
+                    .addComponent(jLabel72)
+                    .addComponent(jLabel73))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel62)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jRadioButton29)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton30))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel63)
-                            .addComponent(jLabel64)
-                            .addComponent(jLabel65)
-                            .addComponent(jLabel66)
-                            .addComponent(jLabel67)
-                            .addComponent(jLabel68)
-                            .addComponent(jLabel69)
-                            .addComponent(jLabel70)
-                            .addComponent(jLabel71)
-                            .addComponent(jLabel72)
-                            .addComponent(jLabel73))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton29)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton30))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton27)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton28))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton25)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton26))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton23)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton24))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton21)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton22))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton19)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton20))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton17)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton18))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton15)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton16))
-                            .addComponent(txtKnownAllergies)
-                            .addComponent(txtKnownAdverseReactionToDrugs)
-                            .addComponent(txtMajorSurgeries, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
-                        .addComponent(btnSave)))
-                .addContainerGap())
+                        .addComponent(jRadioButton27)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton28))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jRadioButton25)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton26))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jRadioButton23)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton24))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jRadioButton21)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton22))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jRadioButton19)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton20))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jRadioButton17)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton18))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jRadioButton15)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton16))
+                    .addComponent(txtKnownAllergies)
+                    .addComponent(txtKnownAdverseReactionToDrugs)
+                    .addComponent(txtMajorSurgeries, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addComponent(txtAlertImportantMedical)
+                        .addGap(34, 34, 34))))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1339,9 +1439,11 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel73)
                     .addComponent(txtMajorSurgeries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtAlertImportantMedical)
+                .addGap(18, 18, 18)
                 .addComponent(btnSave)
                 .addContainerGap())
         );
@@ -1355,7 +1457,11 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
 
     private void btnNextBasicDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextBasicDetailsActionPerformed
         // TODO add your handling code here:
+        if (checkBasicDetails()) {
+            txtAlertBasic.setVisible(true);
+        }else{
         tabContactDetails.setSelectedIndex(1);
+        }
     }//GEN-LAST:event_btnNextBasicDetailsActionPerformed
 
     private void cbPresentStateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPresentStateItemStateChanged
@@ -1384,12 +1490,20 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
 
     private void btnNextContactDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextContactDetailsActionPerformed
         // TODO add your handling code here:
+        if (CheckContactDetails()) {
+            txtAlertContactDetails.setVisible(true);
+        }else{
         tabContactDetails.setSelectedIndex(2);
+        }
     }//GEN-LAST:event_btnNextContactDetailsActionPerformed
 
     private void btnNextContactNextOfKinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextContactNextOfKinActionPerformed
         // TODO add your handling code here:
+        if (CheckNextOfKinContact()) {
+            txtAlertContactNextOfKin.setVisible(true);
+        }else{
         tabContactDetails.setSelectedIndex(3);
+        }
     }//GEN-LAST:event_btnNextContactNextOfKinActionPerformed
 
     private void cbNextOfKinStateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNextOfKinStateItemStateChanged
@@ -1404,29 +1518,49 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
 
     private void btnNextPersonalDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextPersonalDetailsActionPerformed
         // TODO add your handling code here:
+        if (CheckPersonalDetails()) {
+            txtAlertPersonalDetails.setVisible(true);
+        }else{
         tabContactDetails.setSelectedIndex(4);
+        }
     }//GEN-LAST:event_btnNextPersonalDetailsActionPerformed
 
     private void btnNextProffesionDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextProffesionDetailsActionPerformed
         // TODO add your handling code here:
-        
+        if (CheckProfessionDetails()) {
+            txtAlertProfessionDetails.setVisible(true);
+        }else{
         tabContactDetails.setSelectedIndex(5);
+        }
     }//GEN-LAST:event_btnNextProffesionDetailsActionPerformed
 
     private void btnNextLifeStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextLifeStyleActionPerformed
         // TODO add your handling code here:
+        if (checkLifestyle()) {
+            txtAlertLifestyle.setVisible(true);
+        }else{
         tabContactDetails.setSelectedIndex(6);
+        }
     }//GEN-LAST:event_btnNextLifeStyleActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if (CheckImportantMedical()||checkBasicDetails()||CheckContactDetails()||CheckNextOfKinContact()||CheckPersonalDetails()||CheckProfessionDetails()||checkLifestyle()||CheckBasicComplainta()) {
+            txtAlertImportantMedical.setVisible(true);
+        }else{
         insertComprehensiveRegForm();
         this.setVisible(false);
+        }
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnNextBasicComplaintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextBasicComplaintsActionPerformed
         // TODO add your handling code here:
+        if (CheckBasicComplainta()) {
+            txtAlertBasicComplaints.setVisible(true);
+        }else{
         tabContactDetails.setSelectedIndex(7);
+        }
     }//GEN-LAST:event_btnNextBasicComplaintsActionPerformed
 
     /**
@@ -1619,6 +1753,14 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane tabContactDetails;
+    private javax.swing.JLabel txtAlertBasic;
+    private javax.swing.JLabel txtAlertBasicComplaints;
+    private javax.swing.JLabel txtAlertContactDetails;
+    private javax.swing.JLabel txtAlertContactNextOfKin;
+    private javax.swing.JLabel txtAlertImportantMedical;
+    private javax.swing.JLabel txtAlertLifestyle;
+    private javax.swing.JLabel txtAlertPersonalDetails;
+    private javax.swing.JLabel txtAlertProfessionDetails;
     private javax.swing.JTextField txtAverageCigarets;
     private javax.swing.JTextField txtAverageDrinks;
     private javax.swing.JTextField txtConsumptionOfCoffeTeaPerDay;
@@ -1719,6 +1861,16 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         }
         return "-1";
     }
+    private boolean buttonGIsEmpty(ButtonGroup group) {
+        Enumeration<AbstractButton> bg=group.getElements();
+        while (bg.hasMoreElements()) {
+            JRadioButton jrd=(JRadioButton) bg.nextElement();
+            if (jrd.isSelected()) {
+                return false;
+            }
+        }
+        return true;
+    }
     public int insertBasicDetails(){
         return patientsHandler.insertPatient(new Patient(getSex(), new Date(dateBirthDate.getDate().getYear(), dateBirthDate.getDate().getMonth(), dateBirthDate.getDate().getDay()), txtFirstName.getText(), txtMidleName.getText(), txtSurname.getText()));
     }
@@ -1751,7 +1903,106 @@ public class ComprehensiveRegistrationFrame extends javax.swing.JFrame {
         return comprehensiveRegFormHandler.insertImportantMedicalComplaints(new ImportantMedicalComplaints(getYesOrNo(btnGroupDiabetic), getYesOrNo(btnGroupHypertensive), getYesOrNo(btnGroupCardiacCondition), getYesOrNo(btnGroupRespiratoryCondition), getYesOrNo(btnGroupDigestiveCondition), getYesOrNo(btnGroupOrthopedicCondition), getYesOrNo(btnGroupMuscularCondition), getYesOrNo(btnGroupMuscularCondition), txtKnownAllergies.getText(), txtKnownAdverseReactionToDrugs.getText(), txtMajorSurgeries.getText()));
     }
     public void insertComprehensiveRegForm(){
-        Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
-        comprehensiveRegFormHandler.insertComprehensiveRegForm(new ComprehensiveRegistrationForm(insertBasicDetails(), new Date(timeNow.getDate()), insertContactDetails(), insertContactNextOfKin(), insertPersonalDetails(), insertProfessionDetails(), insertLifeStyle(), insertBasicComplaints(), insertImportantMedicalComplaints()));
+        Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        comprehensiveRegFormHandler.insertComprehensiveRegForm(new ComprehensiveRegistrationForm(insertBasicDetails(), date, insertContactDetails(), insertContactNextOfKin(), insertPersonalDetails(), insertProfessionDetails(), insertLifeStyle(), insertBasicComplaints(), insertImportantMedicalComplaints()));
+    }
+
+    private void fillInfoFromMiniForm() {
+        MiniRegForm miniRegForm=miniRegFormHandler.getMiniRegForm(IDPatient);
+        Patient p=patientsHandler.getPatient(IDPatient);
+        NextOfKin nextOfKin=nextOfKinHandler.getNextOfKin(miniRegForm.getNextOfKinID());
+        txtFirstName.setText(p.getFirstName());
+        txtMidleName.setText(p.getMidleName());
+        txtSurname.setText(p.getSurname());
+        txtStatementOfComplaints.setText(miniRegForm.getBriefStatementOfComplaint());
+        txtTelephone.setText(miniRegForm.getContactTelephone());
+        
+        txtNextOfKinFirstName.setText(nextOfKin.getFirstName());
+        txtNextOfKinMiddleName.setText(nextOfKin.getMidleName());
+        txtNextOfKinSurname.setText(nextOfKin.getSurname());
+
+    }
+
+    private void hideAlerts() {
+        txtAlertBasic.setVisible(false);
+        txtAlertBasicComplaints.setVisible(false);
+        txtAlertContactDetails.setVisible(false);
+        txtAlertContactNextOfKin.setVisible(false);
+        txtAlertImportantMedical.setVisible(false);
+        txtAlertLifestyle.setVisible(false);
+        txtAlertPersonalDetails.setVisible(false);
+        txtAlertProfessionDetails.setVisible(false);
+    }
+    
+    private boolean checkBasicDetails() {
+        if (txtFirstName.getText().isEmpty()||txtSurname.getText().isEmpty()||getSex()=="-1"||dateBirthDate.getDate()==null) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private boolean CheckContactDetails() {
+        if (cbPresentStreet.getSelectedIndex()==-1||txtPresentDoorNo.getText().isEmpty()||txtPermenantDoorNo.getText().isEmpty()||txtTelephone.getText().isEmpty()) {
+            if (txtMobile.getText().isEmpty()||txtPager.getText().isEmpty()||txtFax.getText().isEmpty()||txtEmail.getText().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean CheckNextOfKinContact() {
+        if (txtNextOfKinFirstName.getText().isEmpty()||txtNextOfKinSurname.getText().isEmpty()||cbNextOfKinRelationship.getSelectedIndex()==-1) {
+            if (cbNextOfKinStreet.getSelectedIndex()==-1||txtNextOfKinDoorNo.getText().isEmpty()||txtNextOfKinTelephone.getText().isEmpty()) {
+                if (txtNextOfKinMobile.getText().isEmpty()||txtNextOfKinPager.getText().isEmpty()||txtNextOfKinFax.getText().isEmpty()||txtNextOfKinEmail.getText().isEmpty()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean CheckPersonalDetails() {
+        if (buttonGIsEmpty(btnGroupMartialStatus)||txtNoOfDependents.getText().isEmpty()||txtHeight.getText().isEmpty()||txtWeight.getText()
+                .isEmpty()||cbBloodType.getSelectedIndex()==-1) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean CheckProfessionDetails() {
+        if (txtOccupation.getText().isEmpty()||txtGrossAnnualIncome.getText().isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkLifestyle() {
+        if (buttonGIsEmpty(btnGroupVegetarian)||buttonGIsEmpty(btnGroupSmoker)||buttonGIsEmpty(btnGroupConsumeAlcoholic)||buttonGIsEmpty(btnGroupUseStimulants)) {
+            if (txtConsumptionOfCoffeTeaPerDay.getText().isEmpty()||txtConsumptionSoftDrinksPerDay.getText().isEmpty()||buttonGIsEmpty(btnGroupRegularMeals)) {
+                if (buttonGIsEmpty(btnGroupEatHomeFood)||txtAverageCigarets.getText().isEmpty()||txtAverageDrinks.getText().isEmpty()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean CheckBasicComplainta() {
+        if (txtStatementOfComplaints.getText().isEmpty()||txtHistoryOfPreviouseTreatment.getText().isEmpty()||txtPhysicianHospitalTreated.getText().isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean CheckImportantMedical() {
+        if (buttonGIsEmpty(btnGroupDiabetic)||buttonGIsEmpty(btnGroupHypertensive)||buttonGIsEmpty(btnGroupCardiacCondition)||buttonGIsEmpty(btnGroupRespiratoryCondition)) {
+            if (buttonGIsEmpty(btnGroupDigestiveCondition)||buttonGIsEmpty(btnGroupOrthopedicCondition)||buttonGIsEmpty(btnGroupMuscularCondition)||buttonGIsEmpty(btnGroupNeurologicalCondition)) {
+                if (txtKnownAllergies.getText().isEmpty()||txtKnownAdverseReactionToDrugs.getText().isEmpty()||txtMajorSurgeries.getText().isEmpty()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

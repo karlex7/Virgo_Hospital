@@ -21,6 +21,7 @@ public class AddDiagnose extends javax.swing.JFrame {
     public AddDiagnose(int idPatient){
         initComponents();
         IDPatient=idPatient;
+        txtAlert.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,8 +36,7 @@ public class AddDiagnose extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDiagnose = new javax.swing.JTextArea();
         btnAdd = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtAlert = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Add Diagnose");
@@ -52,13 +52,20 @@ public class AddDiagnose extends javax.swing.JFrame {
             }
         });
 
+        txtAlert.setForeground(new java.awt.Color(255, 0, 0));
+        txtAlert.setText("Unesite text!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAdd)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtAlert)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnAdd))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
@@ -76,7 +83,9 @@ public class AddDiagnose extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAdd)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd)
+                    .addComponent(txtAlert))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -85,8 +94,14 @@ public class AddDiagnose extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        if (txtDiagnose.getText().isEmpty()) {
+            txtAlert.setVisible(true);
+        }
+        else{
         patientWorkHandler.insertDiagnose(new Diagnose(IDPatient, txtDiagnose.getText()));
+        txtAlert.setVisible(false);
         this.setVisible(false);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**
@@ -128,6 +143,7 @@ public class AddDiagnose extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel txtAlert;
     private javax.swing.JTextArea txtDiagnose;
     // End of variables declaration//GEN-END:variables
 }

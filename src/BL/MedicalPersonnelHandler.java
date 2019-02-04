@@ -21,4 +21,7 @@ public class MedicalPersonnelHandler extends HandlerBase{
     public SpecialistConsultant getSpecialistConsultant(int IDSpecialistConsultant){
         return repo.getSpecialistConsultant(IDSpecialistConsultant);
     }
+    public void assignPatientToDoctor(int IDPatient,int IDDoctor){
+        repo.asignDoctorToPatient(IDPatient, IDDoctor);
+    }
 }

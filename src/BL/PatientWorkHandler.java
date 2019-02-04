@@ -63,4 +63,25 @@ public class PatientWorkHandler extends HandlerBase{
     public List<Consulting> getAllConsultings(){
         return repo.getConsultings();
     }
+    
+    public void payLabTest(int IDLabTestPresciribed){
+        repo.payLabTest(IDLabTestPresciribed);
+    }
+    public void payMedication(int IDMedicationPrescribed){
+        repo.payMedication(IDMedicationPrescribed);
+    }
+    public void payConsulting(int IDConsultingRecommended){
+        repo.payConsulting(IDConsultingRecommended);
+    }
+    
+    public List<LabTestRecommended> getUnpaidLabTests(){
+        return repo.getLabTestRecommendedsUnpaid();
+    }
+    public List<MedicationsPrescribed> getUnpaidMedications(){
+        return repo.getMedicationsPrescribedsUnpaid();
+    }
+    public List<ConsultingRecommended> getUnpaidConsulting()
+    {
+        return repo.getConsultingRecommendedsUnpaid();
+    }
 }

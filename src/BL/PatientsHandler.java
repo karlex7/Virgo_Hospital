@@ -32,4 +32,7 @@ public class PatientsHandler extends HandlerBase{
         });
         return patients;
     }
+    public List<Patient> getPatientsWithNoDoctor(){
+        return repo.getPatientsWithNoDoctor();
+    }
 }
