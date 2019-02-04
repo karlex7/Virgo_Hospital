@@ -64,7 +64,7 @@ public class AddDiagnose extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtAlert)
-                        .addGap(41, 41, 41)
+                        .addGap(31, 31, 31)
                         .addComponent(btnAdd))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
