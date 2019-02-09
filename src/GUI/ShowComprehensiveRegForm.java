@@ -1523,7 +1523,7 @@ public class ShowComprehensiveRegForm extends javax.swing.JFrame {
         txtSurname.setText(p.getSurname());
         txtSex.setText(p.getSex());
         txtBirthDate.setText(p.getBirthDate().toString());
-        //txtRegDate.setText(text);
+        txtRegDate.setText(comprehensiveRegistrationForm.getRegDate().toString());
     }
 
     private void showContactDetails() {

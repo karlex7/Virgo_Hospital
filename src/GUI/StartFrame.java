@@ -12,6 +12,7 @@ import MODEL.PatientWork.*;
 import MODEL.PatientWork.LabTest;
 import MODEL.PatientWork.LabTestRecommended;
 import MODEL.PatientWork.Medication;
+import com.sun.xml.internal.ws.util.StringUtils;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +54,7 @@ public class StartFrame extends javax.swing.JFrame {
         txtAlertIDDoctor.setVisible(false);
         txtAlertPatient.setVisible(false);
         txtAlertSetPatientToDoctor.setVisible(false);
+        txtAlertWrongID.setVisible(false);
     }
 
     /**
@@ -98,6 +100,7 @@ public class StartFrame extends javax.swing.JFrame {
         btnAppointmentHistory = new javax.swing.JButton();
         txtAlertIDDoctor = new javax.swing.JLabel();
         txtAlertPatient = new javax.swing.JLabel();
+        txtAlertWrongID = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -298,6 +301,9 @@ public class StartFrame extends javax.swing.JFrame {
         txtAlertPatient.setForeground(new java.awt.Color(204, 51, 0));
         txtAlertPatient.setText("Select Patient!");
 
+        txtAlertWrongID.setForeground(new java.awt.Color(255, 51, 51));
+        txtAlertWrongID.setText("Wrong ID!");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -308,7 +314,9 @@ public class StartFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(txtAlertIDDoctor))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAlertIDDoctor)
+                            .addComponent(txtAlertWrongID)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -357,7 +365,10 @@ public class StartFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(txtWelcome))
-                    .addComponent(txtAlertIDDoctor, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtAlertWrongID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtAlertIDDoctor)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -544,21 +555,31 @@ public class StartFrame extends javax.swing.JFrame {
         if (txtIdDoctor.getText().isEmpty()) {
             txtAlertIDDoctor.setVisible(true);
         }
-        else{
+        else if(loadPatients()){
             DoctorID = Integer.parseInt(txtIdDoctor.getText());
-            loadPatients();
+            loadPatientsFromDoctor();
             txtAlertIDDoctor.setVisible(false);
+            txtAlertWrongID.setVisible(false);
             txtWelcome.setText("Welcome dr. " + patientsHandler.getPerson(medicalPersonnelHandler.getMedicalPersonnel(medicalPersonnelHandler.getDoctor(DoctorID).getIDDoctor()).getPersonID()).getFirstName());
+        }else{
+            txtAlertWrongID.setVisible(true);
+            txtAlertIDDoctor.setVisible(false);
         }
     }//GEN-LAST:event_btnLoadDoctorActionPerformed
 
     private void listPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPatientMouseClicked
         // TODO add your handling code here:
 
-        int selectedIndex = listPatient.getSelectedIndex();
-        List<Patient> patientList = patientsHandler.getPatientsByDoctor(DoctorID);
-        txtPatientName.setText(patientList.get(selectedIndex).getFirstName());
-        txtBirthDate.setText(patientList.get(selectedIndex).getBirthDate().toString());
+        if (txtIdDoctor.getText().isEmpty()) {
+            txtAlertIDDoctor.setVisible(true);
+        }else{
+            txtAlertIDDoctor.setVisible(false);
+            txtAlertPatient.setVisible(false);
+            int selectedIndex = listPatient.getSelectedIndex();
+            List<Patient> patientList = patientsHandler.getPatientsByDoctor(DoctorID);
+            txtPatientName.setText(patientList.get(selectedIndex).getFirstName());
+            txtBirthDate.setText(patientList.get(selectedIndex).getBirthDate().toString());
+        }
     }//GEN-LAST:event_listPatientMouseClicked
 
     private void btnAddDiagnoseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDiagnoseActionPerformed
@@ -779,14 +800,26 @@ public class StartFrame extends javax.swing.JFrame {
     private javax.swing.JLabel txtAlertIDDoctor;
     private javax.swing.JLabel txtAlertPatient;
     private javax.swing.JLabel txtAlertSetPatientToDoctor;
+    private javax.swing.JLabel txtAlertWrongID;
     private javax.swing.JLabel txtBirthDate;
     private javax.swing.JTextField txtIdDoctor;
     private javax.swing.JLabel txtPatientName;
     private javax.swing.JLabel txtWelcome;
     // End of variables declaration//GEN-END:variables
 
-    private void loadPatients() {
-        
+    private boolean loadPatients() {
+        List<Integer> doctorsIdList=new ArrayList<>();
+        for (Doctor doctor : medicalPersonnelHandler.getAllDoctors()) {
+            doctorsIdList.add(doctor.getIDDoctor());
+        }
+        for (Integer id : doctorsIdList) {
+            if (Integer.parseInt(txtIdDoctor.getText())==id ) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private void loadPatientsFromDoctor() {
         List<Patient> list = patientsHandler.getPatientsByDoctor(DoctorID);
         DefaultListModel mod = new DefaultListModel();
 
@@ -874,9 +907,22 @@ public class StartFrame extends javax.swing.JFrame {
             return true;
         }
     }
-    
-    
 
+    private boolean isNumeric(String text) {
+        try  
+            {  
+                int d = Integer.parseInt(text);  
+            }  
+        catch(NumberFormatException nfe)  
+            {  
+                return false;  
+            }  
+        return true;  
+    }
     
-
 }
+
+    
+    
+
+    

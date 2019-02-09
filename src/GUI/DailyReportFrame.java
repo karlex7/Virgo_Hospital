@@ -33,6 +33,7 @@ public class DailyReportFrame extends javax.swing.JFrame {
      */
     public DailyReportFrame() {
         initComponents();
+        jTabbedPane1.setSelectedIndex(2);
         showDoctors();
         labels[0]=txtNo1;
         labels[1]=txtNo2;
@@ -58,6 +59,7 @@ public class DailyReportFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -104,13 +106,17 @@ public class DailyReportFrame extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("Summary of fees charged");
 
+        jLabel4.setText("Medications");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addContainerGap(540, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -118,7 +124,9 @@ public class DailyReportFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel4)
+                .addContainerGap(376, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Summary of fees charged", jPanel3);
@@ -276,6 +284,7 @@ public class DailyReportFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -365,6 +374,9 @@ public class DailyReportFrame extends javax.swing.JFrame {
         }
     }
 
+    private void showMedicationsSold(){
+        
+    }
     private void showNoFolowUp() {
         
     }
